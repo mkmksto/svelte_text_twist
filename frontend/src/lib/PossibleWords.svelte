@@ -43,7 +43,8 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        /* align-items: flex-start; */
+        align-content: flex-start;
+        gap: 0 3rem;
         width: var(--card-width);
         height: var(--card-height);
     }

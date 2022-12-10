@@ -15,9 +15,7 @@
 </div>
 
 <div class="letter-options letter">
-    {#await $randomWord}
-        ...fetching
-    {:then $randomWord}
+    {#await $randomWord then $randomWord}
         {#each $randomWord.word as word}
             <div class="cell letter-cell">{word}</div>
         {/each}
