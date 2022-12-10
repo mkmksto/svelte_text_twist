@@ -1,23 +1,33 @@
-<script></script>
+<script>
+    import { randomWord } from '../stores/randomWord'
+</script>
 
 <div class="card">
-    <div class="word-cells">
-        <div class="cell">G</div>
-        <div class="cell">O</div>
-        <div class="cell">T</div>
-    </div>
-    <div class="word-cells">
-        <div class="cell">X</div>
-        <div class="cell">Y</div>
-        <div class="cell">Z</div>
+    <div class="word-columns">
+        {#await $randomWord}
+            ...
+        {:then $randomWord}
+            {#each $randomWord.sub_words as sub_words}
+                <div class="word-cells">
+                    {#each sub_words as sub_word}
+                        <div class="cell">{sub_word}</div>
+                    {/each}
+                </div>
+            {/each}
+        {/await}
     </div>
 </div>
 
 <style>
+    :root {
+        --card-width: 1000px;
+        --card-height: 400px;
+    }
+
     .card {
-        width: 1000px;
+        width: var(--card-width);
         max-width: 900px;
-        height: 400px;
+        height: var(--card-height);
         max-height: 900px;
         display: flex;
         flex-direction: column;
@@ -27,6 +37,15 @@
         /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
         border-radius: 0.7rem;
         padding: 0.7rem;
+    }
+
+    .word-columns {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        /* align-items: flex-start; */
+        width: var(--card-width);
+        height: var(--card-height);
     }
 
     .word-cells {

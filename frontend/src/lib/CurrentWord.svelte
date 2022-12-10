@@ -2,23 +2,26 @@
     import { randomWord } from '../stores/randomWord'
     const sampleWord = 'Rainbow'
     console.log(randomWord)
-    // const colors = ['var(--orange)', 'var(--yellow)', 'var(--blue)', 'var(--light-blue)']
 </script>
 
 <div class="letter-spaces letter">
-    {#each $randomWord as word}
-        <!-- <div style:background-color={getRandomItem(colors)} class="cell empty-cell"> -->
-        <div class="cell empty-cell">
-            {word}
-        </div>
-    {/each}
+    {#await $randomWord}
+        ...fetching
+    {:then $randomWord}
+        {#each $randomWord.word as word}
+            <div class="cell empty-cell">{word}</div>
+        {/each}
+    {/await}
 </div>
 
 <div class="letter-options letter">
-    <!-- <div class="cell letter-cell">A</div> -->
-    {#each $randomWord as word}
-        <div class="cell letter-cell">{word}</div>
-    {/each}
+    {#await $randomWord}
+        ...fetching
+    {:then $randomWord}
+        {#each $randomWord.word as word}
+            <div class="cell letter-cell">{word}</div>
+        {/each}
+    {/await}
 </div>
 
 <style>
