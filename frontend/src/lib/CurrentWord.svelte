@@ -1,10 +1,12 @@
 <script>
+    import { randomWord } from '../stores/randomWord'
     const sampleWord = 'Rainbow'
+    console.log(randomWord)
     // const colors = ['var(--orange)', 'var(--yellow)', 'var(--blue)', 'var(--light-blue)']
 </script>
 
 <div class="letter-spaces letter">
-    {#each sampleWord as word}
+    {#each $randomWord as word}
         <!-- <div style:background-color={getRandomItem(colors)} class="cell empty-cell"> -->
         <div class="cell empty-cell">
             {word}
@@ -13,12 +15,10 @@
 </div>
 
 <div class="letter-options letter">
-    <div class="cell letter-cell">A</div>
-    <div class="cell letter-cell">B</div>
-    <div class="cell letter-cell">C</div>
-    <div class="cell letter-cell">D</div>
-    <div class="cell letter-cell">D</div>
-    <div class="cell letter-cell">D</div>
+    <!-- <div class="cell letter-cell">A</div> -->
+    {#each $randomWord as word}
+        <div class="cell letter-cell">{word}</div>
+    {/each}
 </div>
 
 <style>
