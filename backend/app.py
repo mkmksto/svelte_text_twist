@@ -44,9 +44,6 @@ def generate_random_word():
     Returns:
         dict: {'word': random_word, 'sub_words': sub_words}
     """
-    if not request.method == 'POST':
-        print('NOT POST')
-        return
 
     params: dict = request.json
     pprint(params)

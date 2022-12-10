@@ -9,7 +9,6 @@ export const gameSettings = writable({
 })
 
 export const getRandomWord = derived(gameSettings, async ($gameSettings) => {
-    console.log($gameSettings)
     const res = await fetch('http://127.0.0.1:5000/api/random_word', {
         method: 'POST',
         headers: {
