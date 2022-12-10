@@ -79,7 +79,7 @@ class RandomWord:
         else:
             return None
 
-    def get_subwords(self, word: str) -> list[str] or None:
+    def get_subwords(self, word: str, max_num: int = 30) -> list[str] or list:
         """Get the subwords of a particular word
 
         Args:
@@ -98,9 +98,11 @@ class RandomWord:
             soup = soup[-1]
             soup = soup.find_all("li")
             soup = [s.contents[0] for s in soup]
+            if len(soup) >= max_num:
+                soup = soup[:max_num]
             return soup
 
-        return None
+        return []
 
 
 def get_dict_file_paths(debug: bool = False) -> list:

@@ -1,13 +1,13 @@
 <script>
-    import { randomWord } from '../stores/randomWord'
+    import { getRandomWord } from '../stores/gameSettings'
 </script>
 
 <div class="card">
     <div class="word-columns">
-        {#await $randomWord}
-            ...
-        {:then $randomWord}
-            {#each $randomWord.sub_words as sub_words}
+        {#await $getRandomWord}
+            <div class="fetching">...</div>
+        {:then $getRandomWord}
+            {#each $getRandomWord.sub_words as sub_words}
                 <div class="word-cells">
                     {#each sub_words as sub_word}
                         <div class="cell">{sub_word}</div>
@@ -57,11 +57,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-transform: uppercase;
         height: 2rem;
         width: 2rem;
-        margin: 0.2rem;
+        margin: 0.2rem 0.1rem;
         background-color: white;
         color: var(--g40-grey);
         border-radius: 0.15rem;
+    }
+
+    .fetching {
+        color: rgba(200, 200, 200, 0.6);
     }
 </style>

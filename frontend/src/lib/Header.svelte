@@ -1,6 +1,10 @@
 <script>
-    import { faBars } from '@fortawesome/free-solid-svg-icons'
+    import { faGear } from '@fortawesome/free-solid-svg-icons'
     import Fa from 'svelte-fa'
+
+    function openModal() {
+        console.log('open modal')
+    }
 </script>
 
 <nav class="header">
@@ -8,7 +12,9 @@
         <li>Score</li>
         <li>Time</li>
         <li>Round</li>
-        <li class="icons"><Fa icon={faBars} size="1.5rem" /></li>
+        <li class="icons" on:click={openModal}>
+            <Fa icon={faGear} size="1.5rem" />
+        </li>
     </ul>
 </nav>
 

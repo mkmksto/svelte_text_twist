@@ -1,8 +1,9 @@
 import time
+from pprint import pprint
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import cross_origin
-from utils import dictionary
+from utils import dictionary, game_settings
 
 app = Flask(__name__)
 
@@ -20,14 +21,54 @@ def index():
     return 'Api Root'
 
 
-@app.route('/api/random_word', methods=['GET'])
+@app.route('/api/random', methods=['GET'])
 @cross_origin(origins=['http://127.0.0.1:5173', 'http://localhost:5173'])
 def get_random_word():
     rand_word = dict_instance.get_random_word()
     freq = dict_instance.get_frequency(rand_word)
-    sub_word = dict_instance.get_subwords(rand_word)
+    sub_word = dict_instance.get_subwords(rand_word, max_num=30)
     return {'word': rand_word, 'sub_words': sub_word, 'freq': freq}
     # return {"a": 1, "id": id(rand)}
+
+
+@app.route('/api/random_word', methods=['POST'])
+@cross_origin(origins=['http://127.0.0.1:5173', 'http://localhost:5173'])
+def generate_random_word():
+    """Get a random word and its corresponding subwords
+    in python dict format
+
+    This endpoint repeatedly queries for a random word
+    until the word actually meets the criteria passed
+    by the client through the fetch POST request
+
+    Returns:
+        dict: {'word': random_word, 'sub_words': sub_words}
+    """
+    if not request.method == 'POST':
+        print('NOT POST')
+        return
+
+    params: dict = request.json
+    pprint(params)
+    min_chars = params.get('min_chars', 6)
+    max_chars = params.get('max_chars', 12)
+    diff: str = params.get('difficulty', 'medium')
+    diff: int = game_settings.diff_map.get(diff)
+    max_subwords = params.get('max_subwords', 20)
+
+    while True:
+        rand_word = dict_instance.get_random_word()
+        frequency = dict_instance.get_frequency(rand_word)
+        if (
+            len(rand_word) < max_chars
+            and len(rand_word) > min_chars
+            and frequency > diff
+        ):
+            break
+
+    sub_words = dict_instance.get_subwords(rand_word, max_num=max_subwords)
+
+    return {'word': rand_word, 'sub_words': sub_words}
 
 
 if __name__ == '__main__':

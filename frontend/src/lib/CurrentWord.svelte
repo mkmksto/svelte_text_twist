@@ -1,22 +1,20 @@
 <script>
-    import { randomWord } from '../stores/randomWord'
-    const sampleWord = 'Rainbow'
-    console.log(randomWord)
+    import { getRandomWord } from '../stores/gameSettings'
 </script>
 
 <div class="letter-spaces letter">
-    {#await $randomWord}
-        ...fetching
-    {:then $randomWord}
-        {#each $randomWord.word as word}
+    {#await $getRandomWord}
+        <div class="fetching">...fetching</div>
+    {:then $getRandomWord}
+        {#each $getRandomWord.word as word}
             <div class="cell empty-cell">{word}</div>
         {/each}
     {/await}
 </div>
 
 <div class="letter-options letter">
-    {#await $randomWord then $randomWord}
-        {#each $randomWord.word as word}
+    {#await $getRandomWord then $getRandomWord}
+        {#each $getRandomWord.word as word}
             <div class="cell letter-cell">{word}</div>
         {/each}
     {/await}
@@ -72,5 +70,9 @@
         height: 100%;
         border: 1px solid white;
         border-radius: 50%;
+    }
+
+    .fetching {
+        color: rgba(200, 200, 200, 0.6);
     }
 </style>
