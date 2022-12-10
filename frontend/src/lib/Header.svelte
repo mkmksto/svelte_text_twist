@@ -1,9 +1,10 @@
 <script>
     import { faGear } from '@fortawesome/free-solid-svg-icons'
     import Fa from 'svelte-fa'
+    import { showModal } from '../stores/gameSettings'
 
     function openModal() {
-        console.log('open modal')
+        $showModal = true
     }
 </script>
 

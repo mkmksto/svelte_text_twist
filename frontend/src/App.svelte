@@ -3,7 +3,13 @@
     import GameControls from './lib/GameControls.svelte'
     import Header from './lib/Header.svelte'
     import PossibleWords from './lib/PossibleWords.svelte'
+    import SettingsModal from './lib/SettingsModal.svelte'
+    import { showModal } from './stores/gameSettings'
 </script>
+
+{#if $showModal}
+    <SettingsModal />
+{/if}
 
 <Header />
 <main>

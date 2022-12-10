@@ -20,3 +20,5 @@ export const getRandomWord = derived(gameSettings, async ($gameSettings) => {
     const py_resp = await res
     return py_resp.json()
 })
+
+export const showModal = writable(false)
