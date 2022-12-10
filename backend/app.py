@@ -22,7 +22,10 @@ def index():
 
 @app.route("/api/random_word", methods=["GET"])
 def get_random_word():
-    return dict_instance.get_rand_word_and_freq()
+    rand_word = dict_instance.get_random_word()
+    freq = dict_instance.get_frequency(rand_word)
+    sub_word = dict_instance.get_subwords(rand_word)
+    return {"word": rand_word, "sub_words": sub_word, "freq": freq}
     # return {"a": 1, "id": id(rand)}
 
 
