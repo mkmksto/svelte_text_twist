@@ -2,7 +2,6 @@ import glob
 import json
 import os
 import random
-from itertools import permutations
 
 import requests
 from bs4 import BeautifulSoup
@@ -24,7 +23,7 @@ class RandomWord:
     def get_random_word(self) -> str:
         return random.choice(self.keys)
 
-    def get_rand_word_and_freq(self) -> dict:
+    def get_rand_word_and_freq(self) -> dict[str, str]:
         """Get a random word and its corresponding frequency
 
         Returns:
