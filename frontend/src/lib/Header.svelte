@@ -21,25 +21,14 @@
 
 <style>
     .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 50px;
-        background-color: white;
-        color: var(--g70-grey);
+        @apply fixed top-0 left-0 w-full h-14 bg-white text-gray-500;
     }
 
     .header ul {
-        list-style: none;
-        display: flex;
-        justify-content: space-around;
-        height: 100%;
-        align-items: center;
-        margin: 0 10rem;
+        @apply list-none flex justify-around items-center h-full mx-3;
     }
 
     .icons {
-        cursor: pointer;
+        @apply cursor-pointer;
     }
 </style>

@@ -6,6 +6,7 @@
     {#await $getRandomWord}
         <div class="fetching">...fetching</div>
     {:then $getRandomWord}
+        <!-- loop through each letter -->
         {#each $getRandomWord.word as word}
             <div class="cell empty-cell">{word}</div>
         {/each}
@@ -22,11 +23,11 @@
 
 <style>
     .letter {
-        display: flex;
-        margin-top: 1rem;
+        @apply flex mt-4;
     }
 
     .letter-options {
+        /* @apply bg-white border */
         background-color: white;
         border-color: 3px solid var(--pink);
     }
@@ -35,44 +36,28 @@
     }
 
     .cell {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0.3rem;
-        font-size: 1.8rem;
-        font-weight: 400;
-        width: 3.5rem;
-        height: 3.5rem;
-        background-color: white;
-        border-radius: 0.2rem;
-        color: var(--g100-grey);
+        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-gray-500;
     }
 
     .letter-cell {
-        border-radius: 50%;
-        text-transform: uppercase;
-        cursor: pointer;
-        color: var(--g70-grey);
-        background-color: white;
-        border: 1px solid var(--g150-grey);
+        @apply rounded-full uppercase cursor-pointer text-gray-500 bg-white border border-solid border-gray-400;
     }
 
     .empty-cell {
-        position: relative;
-        color: rgba(0, 0, 0, 0);
-        background-color: var(--g150-grey);
+        @apply relative bg-gray-300 text-opacity-0;
     }
 
     .empty-cell::after {
-        content: '';
-        position: absolute;
+        @apply content-none absolute w-full h-full border border-solid border-white rounded-full
+        /* content: ''; */
+        /* position: absolute;
         width: 100%;
         height: 100%;
         border: 1px solid white;
-        border-radius: 50%;
+        border-radius: 50%; */;
     }
 
     .fetching {
-        color: rgba(200, 200, 200, 0.6);
+        @apply text-gray-300;
     }
 </style>
