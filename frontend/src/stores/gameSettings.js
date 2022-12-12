@@ -9,7 +9,13 @@ export const gameSettings = writable({
 })
 
 // hmmmm
-export const tempGameSettings = writable({})
+export const tempGameSettings = writable({
+    min_chars: 6,
+    max_chars: 12,
+    difficulty: 'medium',
+    max_subwords: 20,
+    timer: 120,
+})
 
 export const getRandomWord = derived(gameSettings, async ($gameSettings) => {
     const res = await fetch('http://127.0.0.1:5000/api/random_word', {
