@@ -1,5 +1,9 @@
 <script>
     import { getRandomWord } from '../stores/gameSettings'
+
+    // onMount(() => {
+    //     getRandomWord
+    // })
 </script>
 
 <div class="card">
@@ -7,6 +11,13 @@
         {#await $getRandomWord}
             <div class="fetching">...</div>
         {:then $getRandomWord}
+            <!-- the word itself as the first word -->
+            <div class="word-cells">
+                {#each $getRandomWord.word as letterOfWord}
+                    <div class="cell">{letterOfWord}</div>
+                {/each}
+            </div>
+            <!-- populate the subwords -->
             {#each $getRandomWord.sub_words as sub_words}
                 <div class="word-cells">
                     {#each sub_words as sub_word}

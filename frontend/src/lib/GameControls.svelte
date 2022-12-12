@@ -13,11 +13,9 @@
 <style>
     .controls {
         @apply mt-4;
-        /* margin-top: 1rem; */
     }
 
     .btn {
-        @apply mx-4 py-2 px-4 bg-neutral-400 text-neutral-50;
-        /* font-family: 'Pragati Narrow'; */
+        @apply mx-4 py-2 px-4 bg-neutral-400 hover:bg-neutral-500 text-neutral-50;
     }
 </style>
