@@ -1,10 +1,13 @@
-<script></script>
+<script>
+    import { gameSettings } from '../stores/gameSettings'
+</script>
 
 <div class="controls">
     <button class="btn">Twist</button>
     <button class="btn">Give Up</button>
     <button class="btn">Clear</button>
     <button class="btn">Enter</button>
+    <button class="btn" on:click={() => ($gameSettings = $gameSettings)}>New Word</button>
 </div>
 
 <style>

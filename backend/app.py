@@ -56,6 +56,7 @@ def generate_random_word() -> dict:
     while True:
         rand_word = dict_instance.get_random_word()
         frequency = dict_instance.get_frequency(rand_word)
+        print(rand_word)
         if (
             len(rand_word) < max_chars
             and len(rand_word) > min_chars

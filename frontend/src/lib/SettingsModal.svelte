@@ -2,17 +2,7 @@
     import { onMount } from 'svelte'
     import { gameSettings, showModal, tempGameSettings } from '../stores/gameSettings'
 
-    // let localSettings = {
-    //     min_chars: 6,
-    //     max_chars: 12,
-    //     difficulty: 'medium',
-    //     max_subwords: 20,
-    //     timer: 120,
-    // }
-
     onMount(() => {
-        // idk
-        // localSettings = gameSettings
         $tempGameSettings = $gameSettings
     })
 
@@ -63,7 +53,17 @@
         </div>
         <div class="setting">
             <label for="difficulty">Difficulty</label>
-            <input type="text" />
+            <select
+                id="difficulty"
+                class="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg block w-40 p-1.5 ml-auto"
+                bind:value={$tempGameSettings.difficulty}
+            >
+                <option selected>Medium</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="very_hard">Very Hard</option>
+            </select>
         </div>
         <div class="setting">
             <label for="max-subwords">Max Number of Subwords</label>
