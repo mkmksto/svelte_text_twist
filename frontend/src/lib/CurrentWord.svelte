@@ -36,7 +36,7 @@
     }
 
     .cell {
-        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-neutral-500;
+        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-neutral-500 font-bold;
     }
 
     .letter-cell {
@@ -48,13 +48,7 @@
     }
 
     .empty-cell::after {
-        @apply content-none absolute w-full h-full border border-solid border-white rounded-full
-        /* content: ''; */
-        /* position: absolute;
-        width: 100%;
-        height: 100%;
-        border: 1px solid white;
-        border-radius: 50%; */;
+        @apply content-none absolute w-full h-full border border-solid border-white rounded-full;
     }
 
     .fetching {

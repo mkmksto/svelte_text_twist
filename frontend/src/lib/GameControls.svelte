@@ -14,6 +14,6 @@
     }
 
     .btn {
-        @apply mx-4 py-2 px-4 bg-neutral-500 text-neutral-50;
+        @apply mx-4 py-2 px-4 bg-neutral-400 text-neutral-50;
     }
 </style>
