@@ -1,5 +1,14 @@
 <script>
+    import { onDestroy, onMount } from 'svelte'
     import { getRandomWord } from '../stores/gameSettings'
+
+    onMount(() => {
+        console.log('current word mounted')
+    })
+
+    onDestroy(() => {
+        console.log('cur word destroyed')
+    })
 </script>
 
 <div class="letter-spaces letter">
@@ -39,7 +48,7 @@
     }
 
     .letter-cell {
-        @apply rounded-full uppercase cursor-pointer text-neutral-600 bg-white border border-solid border-neutral-400 hover:text-neutral-400;
+        @apply rounded-full uppercase cursor-pointer text-neutral-600 hover:text-neutral-400 bg-white border border-solid border-neutral-400;
     }
 
     .empty-cell {
