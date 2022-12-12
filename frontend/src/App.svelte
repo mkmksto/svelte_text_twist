@@ -25,13 +25,7 @@
         --blue: rgb(0, 139, 200);
         --light-blue: rgb(127, 187, 210);
         --pink: rgb(223, 35, 136);
-        --grey1: rgba(200, 200, 200, 0.3);
         --light-pink: rgba(223, 35, 136, 0.4);
-        --light-grey: rgba(200, 200, 200, 0.6);
-        --g150-grey: rgba(150, 150, 150, 0.6);
-        --g100-grey: rgba(100, 100, 100, 0.6);
-        --g70-grey: rgba(70, 70, 70, 0.6);
-        --g40-grey: rgba(40, 40, 40, 0.6);
     }
 
     main {

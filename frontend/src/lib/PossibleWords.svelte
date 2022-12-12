@@ -25,7 +25,7 @@
     }
 
     .card {
-        @apply h-[var(--card-height)] w-[var(--card-width)] max-w-4xl flex flex-col bg-gray-300 flex-wrap rounded-xl p-3;
+        @apply h-[var(--card-height)] w-[var(--card-width)] max-w-4xl flex flex-col bg-neutral-300 flex-wrap rounded-xl p-3;
     }
 
     .word-columns {
@@ -39,7 +39,7 @@
     }
 
     .cell {
-        @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-gray-700 rounded-sm;
+        @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-neutral-500 rounded-sm;
     }
 
     .fetching {

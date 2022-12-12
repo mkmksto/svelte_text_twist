@@ -36,15 +36,15 @@
     }
 
     .cell {
-        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-gray-500;
+        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-neutral-500;
     }
 
     .letter-cell {
-        @apply rounded-full uppercase cursor-pointer text-gray-500 bg-white border border-solid border-gray-400;
+        @apply rounded-full uppercase cursor-pointer text-neutral-600 bg-white border border-solid border-neutral-400;
     }
 
     .empty-cell {
-        @apply relative bg-gray-300 text-opacity-0;
+        @apply relative bg-neutral-200 text-opacity-0;
     }
 
     .empty-cell::after {
