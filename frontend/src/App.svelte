@@ -35,8 +35,6 @@
     }
 
     main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        @apply flex flex-col items-center;
     }
 </style>
