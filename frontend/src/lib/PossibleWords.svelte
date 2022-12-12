@@ -25,48 +25,24 @@
     }
 
     .card {
-        width: var(--card-width);
-        max-width: 900px;
-        height: var(--card-height);
-        max-height: 900px;
-        display: flex;
-        flex-direction: column;
-        background-color: var(--light-grey);
-        /* border: 1px dotted var(--g150-grey); */
-        flex-wrap: wrap;
-        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
-        border-radius: 0.7rem;
-        padding: 0.7rem;
+        @apply h-[var(--card-height)] w-[var(--card-width)] max-w-4xl flex flex-col bg-gray-300 flex-wrap rounded-xl p-3;
     }
 
     .word-columns {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        gap: 0 3rem;
-        width: var(--card-width);
-        height: var(--card-height);
+        @apply flex flex-col flex-wrap content-start gap-x-12 h-[calc(var(--card-height)-0.5rem)] w-[var(--card-width)];
+        /* display: flex;
+        gap: 0 3rem; */
     }
 
     .word-cells {
-        display: flex;
+        @apply flex;
     }
 
     .cell {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        height: 2rem;
-        width: 2rem;
-        margin: 0.2rem 0.1rem;
-        background-color: white;
-        color: var(--g40-grey);
-        border-radius: 0.15rem;
+        @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-gray-700 rounded-sm;
     }
 
     .fetching {
-        color: rgba(200, 200, 200, 0.6);
+        @apply text-gray-300;
     }
 </style>

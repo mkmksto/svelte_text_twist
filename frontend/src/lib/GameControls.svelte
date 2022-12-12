@@ -9,13 +9,11 @@
 
 <style>
     .controls {
-        margin-top: 1rem;
+        @apply mt-4;
+        /* margin-top: 1rem; */
     }
 
     .btn {
-        margin: 0 1rem;
-        padding: 0.4rem 0.9rem;
-        background-color: var(--g150-grey);
-        color: white;
+        @apply mx-4 py-2 px-4 bg-neutral-500 text-neutral-50;
     }
 </style>
