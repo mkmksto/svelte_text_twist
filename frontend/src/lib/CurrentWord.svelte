@@ -27,7 +27,6 @@
     }
 
     .letter-options {
-        /* @apply bg-white border */
         background-color: white;
         border-color: 3px solid var(--pink);
     }
@@ -36,11 +35,11 @@
     }
 
     .cell {
-        @apply flex justify-center items-center mx-2 text-3xl w-14 h-14 bg-white rounded text-neutral-500 font-bold;
+        @apply flex justify-center items-center mx-2 text-4xl w-14 h-14 bg-white rounded text-neutral-500 font-bold;
     }
 
     .letter-cell {
-        @apply rounded-full uppercase cursor-pointer text-neutral-600 bg-white border border-solid border-neutral-400;
+        @apply rounded-full uppercase cursor-pointer text-neutral-600 bg-white border border-solid border-neutral-400 hover:text-neutral-400;
     }
 
     .empty-cell {

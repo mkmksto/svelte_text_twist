@@ -40,6 +40,7 @@
 
     .cell {
         @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-neutral-500 rounded-sm;
+        /* font-family: 'Pragati Narrow'; */
     }
 
     .fetching {

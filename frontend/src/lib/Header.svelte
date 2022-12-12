@@ -22,6 +22,7 @@
 <style>
     .header {
         @apply fixed top-0 left-0 w-full h-14 bg-white text-gray-500;
+        font-family: 'Open Sans';
     }
 
     .header ul {
