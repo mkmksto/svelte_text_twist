@@ -1,5 +1,6 @@
 <script>
     import { onDestroy, onMount } from 'svelte'
+    import { flip } from 'svelte/animate'
     import { renewCurrentWord } from '../functions/dataFetching'
     import { currentRandomWord, gameSettings } from '../stores/gameSettings'
 
@@ -11,6 +12,7 @@
         // currentRandomWord.set(backEndData)
         // console.log('from backend: ', $currentRandomWord)
         await renewCurrentWord($gameSettings)
+        console.log($currentRandomWord.shuffled_word)
     })
 
     // afterUpdate(async () => {
@@ -54,8 +56,8 @@
 
 <!-- <div class="letter-options letter" bind:this={shuffledWord} use:shuffleWordRendered> -->
 <div class="letter-options letter" bind:this={shuffledWord}>
-    {#each $currentRandomWord.shuffled_word as letter}
-        <div class="cell letter-cell">{letter}</div>
+    {#each $currentRandomWord.shuffled_word as { letter, id } (id)}
+        <div class="cell letter-cell" animate:flip>{letter}</div>
     {:else}
         <div class="fetching">...</div>
     {/each}

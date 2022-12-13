@@ -1,5 +1,6 @@
 import random
 import time
+import uuid
 from pprint import pprint
 
 from flask import Flask, request
@@ -70,8 +71,12 @@ def generate_random_word() -> dict:
     sub_words = dict_instance.get_subwords(rand_word, max_num=max_subwords)
 
     shuffled_word = list(rand_word)
+    # shuffled_word = [[letter, idx] for idx, letter in enumerate(shuffled_word)]
+    shuffled_word = [
+        {'letter': letter, 'id': str(uuid.uuid4())} for letter in shuffled_word
+    ]
     random.shuffle(shuffled_word)
-    shuffled_word = ''.join(shuffled_word)
+    # shuffled_word = ''.join(shuffled_word)
     print(shuffled_word)
 
     return {'word': rand_word, 'sub_words': sub_words, 'shuffled_word': shuffled_word}
