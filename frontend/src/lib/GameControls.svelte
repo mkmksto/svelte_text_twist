@@ -18,12 +18,15 @@
     }
 
     function testGuess() {
-        const [isGuessInArray, idxOfGuess] = validateGuess(
-            $currentGuess.join(''),
-            $currentRandomWord.sub_words
-        )
+        let store = $currentGuess
+        const curGuess = store.join('')
+        const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
         console.log('is guess in array? ', isGuessInArray)
         console.log('idx of guess', idxOfGuess)
+    }
+
+    function resetGuessStore() {
+        $currentGuess = []
     }
 </script>
 
@@ -32,7 +35,13 @@
     <button class="btn">Give Up</button>
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
     <button class="btn" on:click={testGuess}>Enter</button>
-    <button class="btn" on:click={() => renewCurrentWord($gameSettings)}>New Word</button>
+    <button
+        class="btn"
+        on:click={() => {
+            renewCurrentWord($gameSettings)
+            resetGuessStore()
+        }}>New Word</button
+    >
 </div>
 
 <style>

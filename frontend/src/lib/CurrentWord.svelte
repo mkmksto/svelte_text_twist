@@ -30,20 +30,24 @@
         $currentRandomWord = $currentRandomWord
     }
 
+    let count = 0
+
     function updateGuessStore(letter, letterId) {
-        // await tick()
         const clickedLetter = $currentRandomWord.shuffled_word.find(
             (letter) => letterId === letter.id
         )
 
         if (clickedLetter.letter_transferred) {
             $currentGuess = [...$currentGuess, letter]
+            count++
         } else {
             const idx = $currentGuess.indexOf(clickedLetter.letter)
             if (idx > -1) $currentGuess.splice(idx, 1)
             $currentGuess = $currentGuess
+            count--
         }
         console.log('new current guess', $currentGuess)
+        console.log('new ctr value: ', count)
     }
 </script>
 

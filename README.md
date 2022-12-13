@@ -17,7 +17,13 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- guessing adds guess to particular box
+- ensure that the letter order click is preserved when showing the user's guess
+- maybe i can store the UUID inside the guess store as well
+- and then from lines 72 onward `CurrentWord.svelte`, iterate over the elements
+- how to:
+- { letter, id}, idx
+- use the above idx, maybe use some js on line 83 to get the item from the currentGuess store by idx
+- iirc, anything inside {} can be valid js
 
 # To Do List
 
