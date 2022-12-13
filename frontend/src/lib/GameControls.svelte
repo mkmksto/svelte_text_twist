@@ -1,9 +1,13 @@
 <script>
     import { gameSettings } from '../stores/gameSettings'
+
+    function shuffleLetters() {
+        console.log('shuffling')
+    }
 </script>
 
 <div class="controls">
-    <button class="btn">Twist</button>
+    <button class="btn" on:click={shuffleLetters}>Twist</button>
     <button class="btn">Give Up</button>
     <button class="btn">Clear</button>
     <button class="btn">Enter</button>

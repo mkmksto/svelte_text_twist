@@ -1,3 +1,4 @@
+import random
 import time
 from pprint import pprint
 
@@ -66,7 +67,12 @@ def generate_random_word() -> dict:
 
     sub_words = dict_instance.get_subwords(rand_word, max_num=max_subwords)
 
-    return {'word': rand_word, 'sub_words': sub_words}
+    shuffled_word = list(rand_word)
+    random.shuffle(shuffled_word)
+    shuffled_word = ''.join(shuffled_word)
+    print(shuffled_word)
+
+    return {'word': rand_word, 'sub_words': sub_words, 'shuffled_word': shuffled_word}
 
 
 if __name__ == '__main__':

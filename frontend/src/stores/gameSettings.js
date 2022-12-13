@@ -17,6 +17,8 @@ export const tempGameSettings = writable({
     timer: 120,
 })
 
+export const currentRandomWord = writable({})
+
 export const getRandomWord = derived(gameSettings, async ($gameSettings) => {
     const res = await fetch('http://127.0.0.1:5000/api/random_word', {
         method: 'POST',

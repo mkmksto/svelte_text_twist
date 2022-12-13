@@ -11,6 +11,10 @@
 
     afterUpdate(async () => {
         await $getRandomWord
+        shuffleLetters()
+    })
+
+    function shuffleLetters() {
         let letters = shuffledWord.children
         letters = Array.from(letters)
 
@@ -19,7 +23,7 @@
         letters.forEach((letter) => {
             shuffledWord.appendChild(letter)
         })
-    })
+    }
 
     onDestroy(() => {
         console.log('cur word destroyed')
