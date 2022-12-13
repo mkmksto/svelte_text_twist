@@ -1,48 +1,66 @@
 <script>
     import { onDestroy, onMount } from 'svelte'
     import { flip } from 'svelte/animate'
+    import { crossfade } from 'svelte/transition'
     import { renewCurrentWord } from '../functions/dataFetching'
     import { currentRandomWord, gameSettings } from '../stores/gameSettings'
 
     let shuffledWord
 
+    const [send, receive] = crossfade({
+        duration: 600,
+    })
+
     onMount(async () => {
         await renewCurrentWord($gameSettings)
-        console.log($currentRandomWord.shuffled_word)
     })
 
     onDestroy(() => {
         console.log('cur word destroyed')
     })
+
+    function moveLetter(letterId) {
+        const clickedLetter = $currentRandomWord.shuffled_word.find(
+            (letter) => letterId === letter.id
+        )
+        clickedLetter.letter_transferred = !clickedLetter.letter_transferred
+        $currentRandomWord = $currentRandomWord
+    }
 </script>
 
-<div class="letter-spaces letter">
-    {#each $currentRandomWord.word as letter}
-        <div class="cell empty-cell">{letter}</div>
-    {:else}
-        <div class="fetching">...</div>
+<div class="letter-guesses letter">
+    {#each $currentRandomWord.shuffled_word.filter((letter) => letter.letter_transferred) as { letter, id } (id)}
+        <div
+            class="cell letter-cell"
+            in:receive={{ key: id }}
+            out:send={{ key: id }}
+            animate:flip={{ duration: 600 }}
+            on:click={() => moveLetter(id)}
+        >
+            {letter}
+        </div>
     {/each}
 </div>
 
 <div class="letter-options letter" bind:this={shuffledWord}>
-    {#each $currentRandomWord.shuffled_word as { letter, id } (id)}
-        <div class="cell letter-cell" animate:flip={{ duration: 600 }}>{letter}</div>
+    {#each $currentRandomWord.shuffled_word.filter((letter) => !letter.letter_transferred) as { letter, id } (id)}
+        <div
+            class="cell letter-cell"
+            in:receive={{ key: id }}
+            out:send={{ key: id }}
+            animate:flip={{ duration: 600 }}
+            on:click={() => moveLetter(id)}
+        >
+            {letter}
+        </div>
     {:else}
         <div class="fetching">...</div>
     {/each}
-    <!-- {#if $currentRandomWord.shuffled_word.length > 0}
-        {#each $currentRandomWord.shuffled_word as { letter, id } (id)}
-            <div class="cell letter-cell" animate:flip={{ duration: 600 }}>{letter}</div>
-            <div class="fetching">...</div>
-        {/each}
-    {:else}
-        <div class="fetching">...</div>
-    {/if} -->
 </div>
 
 <style>
     .letter {
-        @apply flex mt-4;
+        @apply flex mt-4 h-14;
     }
 
     .letter-options {
@@ -50,7 +68,7 @@
         border-color: 3px solid var(--pink);
     }
 
-    .letter-spaces {
+    .letter-guesses {
     }
 
     .cell {

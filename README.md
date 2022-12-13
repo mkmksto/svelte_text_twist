@@ -6,6 +6,15 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - backend: Python Flask app
 - has a virtual environment called text_twist_venv (backend/text_twist_venv) containing all python dependencies
 
+# Animation
+
+- use `animate:flip` on every element you want animated
+- those elements should have an accompanying unique ID
+- these enables animations like shuffle
+- (word transfer animation)
+- place an additional word_transfer property for each letter
+- we then filter the letters to go up or down depending on wether the value is true or false
+
 # Tomorrow To Do
 
 - Twist shuffles the letters
@@ -22,3 +31,4 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - ROUND tracker
 - Intersection observer that limits the num of words if the subwords intersect with the border of the card
 - check the tempSettings store thing, might not be nec. anymore
+- ^ or simply resize the card to accomodate the num of words

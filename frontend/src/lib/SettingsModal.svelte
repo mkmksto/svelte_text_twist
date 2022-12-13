@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte'
+    import { renewCurrentWord } from '../functions/dataFetching'
     import { gameSettings, showModal, tempGameSettings } from '../stores/gameSettings'
 
     onMount(() => {
@@ -18,7 +19,7 @@
     }
 
     function saveSettingsAndRestart() {
-        $gameSettings = $tempGameSettings
+        renewCurrentWord($gameSettings)
         hideModal()
     }
 </script>
