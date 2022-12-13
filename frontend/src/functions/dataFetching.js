@@ -21,6 +21,4 @@ export async function fetchBackendWord(gameSettings) {
 export async function renewCurrentWord(gameSettings) {
     const backEndData = await fetchBackendWord(gameSettings)
     currentRandomWord.set(backEndData)
-    // console.log(currentRandomWord)
-    return backEndData
 }

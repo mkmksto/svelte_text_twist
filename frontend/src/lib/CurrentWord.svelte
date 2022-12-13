@@ -48,7 +48,7 @@
     {#each $currentRandomWord.word as letter}
         <div class="cell empty-cell">{letter}</div>
     {:else}
-        <div class="fetching">...fetching</div>
+        <div class="fetching">...</div>
     {/each}
 </div>
 
@@ -57,7 +57,7 @@
     {#each $currentRandomWord.shuffled_word as letter}
         <div class="cell letter-cell">{letter}</div>
     {:else}
-        ..fetching
+        <div class="fetching">...</div>
     {/each}
 </div>
 
@@ -91,6 +91,6 @@
     }
 
     .fetching {
-        @apply text-gray-300;
+        @apply text-gray-300 w-14 h-14;
     }
 </style>

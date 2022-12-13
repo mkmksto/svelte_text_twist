@@ -21,3 +21,4 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - SCORE tracker
 - ROUND tracker
 - Intersection observer that limits the num of words if the subwords intersect with the border of the card
+- check the tempSettings store thing, might not be nec. anymore

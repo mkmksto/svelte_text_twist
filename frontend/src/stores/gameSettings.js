@@ -8,7 +8,10 @@ export const gameSettings = writable({
     timer: 120,
 })
 
-// hmmmm
+// temporary Game settings used only for display
+// so that the page doesn't refresh when i update the settings
+// TODO: check this, this might not even be necessary now that
+// the random word isn't a derived store
 export const tempGameSettings = writable({
     min_chars: 6,
     max_chars: 12,
