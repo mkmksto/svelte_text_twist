@@ -4,11 +4,6 @@
 
 <div class="card">
     <div class="word-columns">
-        <div class="word-cells">
-            {#each $currentRandomWord.word as letterOfWord}
-                <div class="cell">{letterOfWord}</div>
-            {/each}
-        </div>
         {#each $currentRandomWord.sub_words as sub_words}
             <div class="word-cells">
                 {#each sub_words as subWordLetter}

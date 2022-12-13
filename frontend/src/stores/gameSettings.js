@@ -22,4 +22,6 @@ export const tempGameSettings = writable({
 
 export const currentRandomWord = writable({ shuffled_word: [], sub_words: '', word: '' })
 
+export const currentGuess = writable([''])
+
 export const showModal = writable(false)

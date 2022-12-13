@@ -69,6 +69,7 @@ def generate_random_word() -> dict:
             break
 
     sub_words = dict_instance.get_subwords(rand_word, max_num=max_subwords)
+    sub_words.insert(0, rand_word)
 
     shuffled_word = list(rand_word)
     shuffled_word = [
