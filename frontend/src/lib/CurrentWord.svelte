@@ -1,10 +1,43 @@
 <script>
-    import { onDestroy, onMount } from 'svelte'
+    import { afterUpdate, onDestroy, onMount } from 'svelte'
+    import { shuffleItems } from '../functions/math'
     import { getRandomWord } from '../stores/gameSettings'
 
-    onMount(() => {
+    let shuffledWord
+    $: wardo = shuffledWord
+
+    onMount(async () => {
         console.log('current word mounted')
+        // await tick()
     })
+
+    afterUpdate(async () => {
+        await $getRandomWord
+        let children = shuffledWord.children
+        children = Array.from(children)
+
+        children.forEach((letter) => letter.remove())
+        children = shuffleItems(children)
+        children.forEach((letter) => {
+            shuffledWord.appendChild(letter)
+        })
+    })
+
+    // async function after() {
+    //     await afterUpdate
+    //     shuffledWord = newOrder
+    // }
+    // after()
+
+    // async function shuffleWordRendered(node) {
+    //     await $getRandomWord
+    //     console.log(node)
+    //     const newOrder = shuffleItems(Array.from(node.children))
+    //     // node.forEach((oldDiv) => oldDiv.delete())
+    //     newOrder.forEach((newDiv) => {
+    //         node.appendChild(newDiv)
+    //     })
+    // }
 
     onDestroy(() => {
         console.log('cur word destroyed')
@@ -22,7 +55,8 @@
     {/await}
 </div>
 
-<div class="letter-options letter">
+<!-- <div class="letter-options letter" bind:this={shuffledWord} use:shuffleWordRendered> -->
+<div class="letter-options letter" bind:this={shuffledWord}>
     {#await $getRandomWord then $getRandomWord}
         {#each $getRandomWord.word as word}
             <div class="cell letter-cell">{word}</div>
