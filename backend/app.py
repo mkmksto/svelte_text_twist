@@ -33,7 +33,9 @@ def get_random_word():
 
 
 @app.route('/api/random_word', methods=['POST'])
-@cross_origin(origins=['http://127.0.0.1:5173', 'http://localhost:5173'])
+@cross_origin(
+    origins=['http://127.0.0.1:5173', 'http://localhost:5173', 'http://127.0.0.1:5000']
+)
 def generate_random_word() -> dict:
     """Get a random word and its corresponding subwords
     in python dict format

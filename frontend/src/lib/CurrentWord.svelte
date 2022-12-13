@@ -1,18 +1,26 @@
 <script>
-    import { afterUpdate, onDestroy, onMount } from 'svelte'
+    import { onDestroy, onMount } from 'svelte'
+    import { fetchBackendWord } from '../functions/dataFetching'
     import { shuffleItems } from '../functions/math'
-    import { getRandomWord } from '../stores/gameSettings'
+    import { currentRandomWord, gameSettings, getRandomWord } from '../stores/gameSettings'
 
     let shuffledWord
 
     onMount(async () => {
         console.log('current word mounted')
+        const backEndData = await fetchData($gameSettings)
+        currentRandomWord.set(backEndData)
+        // console.log(backEndData)
+        console.log('from backend: ', $currentRandomWord)
     })
 
-    afterUpdate(async () => {
-        await $getRandomWord
-        shuffleLetters()
-    })
+    // afterUpdate(async () => {
+    //     await $getRandomWord
+    // })
+
+    async function fetchData(gameSettings) {
+        return fetchBackendWord(gameSettings)
+    }
 
     function shuffleLetters() {
         let letters = shuffledWord.children
@@ -35,8 +43,8 @@
         <div class="fetching">...fetching</div>
     {:then $getRandomWord}
         <!-- loop through each letter -->
-        {#each $getRandomWord.word as word}
-            <div class="cell empty-cell">{word}</div>
+        {#each $getRandomWord.word as letter}
+            <div class="cell empty-cell">{letter}</div>
         {/each}
     {/await}
 </div>
@@ -44,8 +52,8 @@
 <!-- <div class="letter-options letter" bind:this={shuffledWord} use:shuffleWordRendered> -->
 <div class="letter-options letter" bind:this={shuffledWord}>
     {#await $getRandomWord then $getRandomWord}
-        {#each $getRandomWord.word as word}
-            <div class="cell letter-cell">{word}</div>
+        {#each $getRandomWord.shuffled_word as letter}
+            <div class="cell letter-cell">{letter}</div>
         {/each}
     {/await}
 </div>
