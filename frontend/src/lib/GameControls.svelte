@@ -9,12 +9,17 @@
         const newArr = shuffleItems(shuffledWordArray)
         $currentRandomWord.shuffled_word = newArr
     }
+
+    function returnLettersToOriginalPlace() {
+        $currentRandomWord.shuffled_word.forEach((letter) => (letter.letter_transferred = false))
+        $currentRandomWord = $currentRandomWord
+    }
 </script>
 
 <div class="controls">
     <button class="btn" on:click={shuffleLetters}>Twist</button>
     <button class="btn">Give Up</button>
-    <button class="btn">Clear</button>
+    <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
     <button class="btn">Enter</button>
     <button class="btn" on:click={() => renewCurrentWord($gameSettings)}>New Word</button>
 </div>
