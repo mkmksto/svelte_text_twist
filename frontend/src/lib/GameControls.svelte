@@ -1,9 +1,14 @@
 <script>
     import { renewCurrentWord } from '../functions/dataFetching'
-    import { gameSettings } from '../stores/gameSettings'
+    import { shuffleItems } from '../functions/math'
+    import { currentRandomWord, gameSettings } from '../stores/gameSettings'
 
     function shuffleLetters() {
-        console.log('shuffling')
+        const curShuffledWord = $currentRandomWord.shuffled_word
+        const shuffledWordArray = Array.from(curShuffledWord)
+        const newArr = shuffleItems(shuffledWordArray)
+        const newShuffledWord = newArr.join('')
+        $currentRandomWord.shuffled_word = newShuffledWord
     }
 </script>
 
