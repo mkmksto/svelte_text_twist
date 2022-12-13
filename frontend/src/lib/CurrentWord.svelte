@@ -4,40 +4,22 @@
     import { getRandomWord } from '../stores/gameSettings'
 
     let shuffledWord
-    $: wardo = shuffledWord
 
     onMount(async () => {
         console.log('current word mounted')
-        // await tick()
     })
 
     afterUpdate(async () => {
         await $getRandomWord
-        let children = shuffledWord.children
-        children = Array.from(children)
+        let letters = shuffledWord.children
+        letters = Array.from(letters)
 
-        children.forEach((letter) => letter.remove())
-        children = shuffleItems(children)
-        children.forEach((letter) => {
+        letters.forEach((letter) => letter.remove())
+        letters = shuffleItems(letters)
+        letters.forEach((letter) => {
             shuffledWord.appendChild(letter)
         })
     })
-
-    // async function after() {
-    //     await afterUpdate
-    //     shuffledWord = newOrder
-    // }
-    // after()
-
-    // async function shuffleWordRendered(node) {
-    //     await $getRandomWord
-    //     console.log(node)
-    //     const newOrder = shuffleItems(Array.from(node.children))
-    //     // node.forEach((oldDiv) => oldDiv.delete())
-    //     newOrder.forEach((newDiv) => {
-    //         node.appendChild(newDiv)
-    //     })
-    // }
 
     onDestroy(() => {
         console.log('cur word destroyed')
