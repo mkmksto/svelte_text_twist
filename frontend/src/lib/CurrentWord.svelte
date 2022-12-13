@@ -7,10 +7,6 @@
     let shuffledWord
 
     onMount(async () => {
-        // console.log('current word mounted')
-        // const backEndData = await fetchData($gameSettings)
-        // currentRandomWord.set(backEndData)
-        // console.log('from backend: ', $currentRandomWord)
         await renewCurrentWord($gameSettings)
         console.log($currentRandomWord.shuffled_word)
     })
@@ -18,10 +14,6 @@
     // afterUpdate(async () => {
     //     await $getRandomWord
     // })
-
-    // async function fetchData(gameSettings) {
-    //     return fetchBackendWord(gameSettings)
-    // }
 
     // function shuffleLetters() {
     //     let letters = shuffledWord.children
@@ -40,13 +32,6 @@
 </script>
 
 <div class="letter-spaces letter">
-    <!-- {#await $getRandomWord}
-        <div class="fetching">...fetching</div>
-    {:then $getRandomWord}
-        {#each $getRandomWord.word as letter}
-            <div class="cell empty-cell">{letter}</div>
-        {/each}
-    {/await} -->
     {#each $currentRandomWord.word as letter}
         <div class="cell empty-cell">{letter}</div>
     {:else}
@@ -54,10 +39,9 @@
     {/each}
 </div>
 
-<!-- <div class="letter-options letter" bind:this={shuffledWord} use:shuffleWordRendered> -->
 <div class="letter-options letter" bind:this={shuffledWord}>
     {#each $currentRandomWord.shuffled_word as { letter, id } (id)}
-        <div class="cell letter-cell" animate:flip>{letter}</div>
+        <div class="cell letter-cell" animate:flip={{ duration: 600 }}>{letter}</div>
     {:else}
         <div class="fetching">...</div>
     {/each}
