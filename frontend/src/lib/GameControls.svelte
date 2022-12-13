@@ -7,7 +7,6 @@
         const curShuffledWord = $currentRandomWord.shuffled_word
         const shuffledWordArray = Array.from(curShuffledWord)
         const newArr = shuffleItems(shuffledWordArray)
-        // const newShuffledWord = newArr.join('')
         $currentRandomWord.shuffled_word = newArr
     }
 </script>

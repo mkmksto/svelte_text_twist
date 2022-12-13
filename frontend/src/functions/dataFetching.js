@@ -19,6 +19,8 @@ export async function fetchBackendWord(gameSettings) {
 }
 
 export async function renewCurrentWord(gameSettings) {
+    // reset the word forst so that the UI also resets
+    currentRandomWord.set({ shuffled_word: [], sub_words: '', word: '' })
     const backEndData = await fetchBackendWord(gameSettings)
     currentRandomWord.set(backEndData)
 }

@@ -11,21 +11,6 @@
         console.log($currentRandomWord.shuffled_word)
     })
 
-    // afterUpdate(async () => {
-    //     await $getRandomWord
-    // })
-
-    // function shuffleLetters() {
-    //     let letters = shuffledWord.children
-    //     letters = Array.from(letters)
-
-    //     letters.forEach((letter) => letter.remove())
-    //     letters = shuffleItems(letters)
-    //     letters.forEach((letter) => {
-    //         shuffledWord.appendChild(letter)
-    //     })
-    // }
-
     onDestroy(() => {
         console.log('cur word destroyed')
     })
@@ -45,6 +30,14 @@
     {:else}
         <div class="fetching">...</div>
     {/each}
+    <!-- {#if $currentRandomWord.shuffled_word.length > 0}
+        {#each $currentRandomWord.shuffled_word as { letter, id } (id)}
+            <div class="cell letter-cell" animate:flip={{ duration: 600 }}>{letter}</div>
+            <div class="fetching">...</div>
+        {/each}
+    {:else}
+        <div class="fetching">...</div>
+    {/if} -->
 </div>
 
 <style>

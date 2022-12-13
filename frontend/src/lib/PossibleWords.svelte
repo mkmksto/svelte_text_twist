@@ -1,29 +1,9 @@
 <script>
     import { currentRandomWord } from '../stores/gameSettings'
-
-    // onMount(() => {
-    //     getRandomWord
-    // })
 </script>
 
 <div class="card">
     <div class="word-columns">
-        <!-- {#await $getRandomWord}
-            <div class="fetching">...</div>
-        {:then $getRandomWord}
-            <div class="word-cells">
-                {#each $getRandomWord.word as letterOfWord}
-                    <div class="cell">{letterOfWord}</div>
-                {/each}
-            </div>
-            {#each $getRandomWord.sub_words as sub_words}
-                <div class="word-cells">
-                    {#each sub_words as sub_word}
-                        <div class="cell">{sub_word}</div>
-                    {/each}
-                </div>
-            {/each}
-        {/await} -->
         <div class="word-cells">
             {#each $currentRandomWord.word as letterOfWord}
                 <div class="cell">{letterOfWord}</div>
@@ -63,7 +43,6 @@
 
     .cell {
         @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-neutral-500 rounded-sm;
-        /* font-family: 'Pragati Narrow'; */
     }
 
     .fetching {
