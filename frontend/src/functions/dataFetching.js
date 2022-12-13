@@ -1,3 +1,4 @@
+import { currentRandomWord } from '../stores/gameSettings'
 /**
  * Fetch data from the backend contaiing the word, its subwords, and a shuffled representation
  * @param {Object} gameSettings
@@ -15,4 +16,11 @@ export async function fetchBackendWord(gameSettings) {
     })
     const py_resp = await res
     return py_resp.json()
+}
+
+export async function renewCurrentWord(gameSettings) {
+    const backEndData = await fetchBackendWord(gameSettings)
+    currentRandomWord.set(backEndData)
+    // console.log(currentRandomWord)
+    return backEndData
 }

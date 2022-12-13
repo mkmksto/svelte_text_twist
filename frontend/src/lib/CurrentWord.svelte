@@ -1,37 +1,36 @@
 <script>
     import { onDestroy, onMount } from 'svelte'
-    import { fetchBackendWord } from '../functions/dataFetching'
-    import { shuffleItems } from '../functions/math'
-    import { currentRandomWord, gameSettings, getRandomWord } from '../stores/gameSettings'
+    import { renewCurrentWord } from '../functions/dataFetching'
+    import { currentRandomWord, gameSettings } from '../stores/gameSettings'
 
     let shuffledWord
 
     onMount(async () => {
-        console.log('current word mounted')
-        const backEndData = await fetchData($gameSettings)
-        currentRandomWord.set(backEndData)
-        // console.log(backEndData)
-        console.log('from backend: ', $currentRandomWord)
+        // console.log('current word mounted')
+        // const backEndData = await fetchData($gameSettings)
+        // currentRandomWord.set(backEndData)
+        // console.log('from backend: ', $currentRandomWord)
+        await renewCurrentWord($gameSettings)
     })
 
     // afterUpdate(async () => {
     //     await $getRandomWord
     // })
 
-    async function fetchData(gameSettings) {
-        return fetchBackendWord(gameSettings)
-    }
+    // async function fetchData(gameSettings) {
+    //     return fetchBackendWord(gameSettings)
+    // }
 
-    function shuffleLetters() {
-        let letters = shuffledWord.children
-        letters = Array.from(letters)
+    // function shuffleLetters() {
+    //     let letters = shuffledWord.children
+    //     letters = Array.from(letters)
 
-        letters.forEach((letter) => letter.remove())
-        letters = shuffleItems(letters)
-        letters.forEach((letter) => {
-            shuffledWord.appendChild(letter)
-        })
-    }
+    //     letters.forEach((letter) => letter.remove())
+    //     letters = shuffleItems(letters)
+    //     letters.forEach((letter) => {
+    //         shuffledWord.appendChild(letter)
+    //     })
+    // }
 
     onDestroy(() => {
         console.log('cur word destroyed')
@@ -39,23 +38,27 @@
 </script>
 
 <div class="letter-spaces letter">
-    {#await $getRandomWord}
+    <!-- {#await $getRandomWord}
         <div class="fetching">...fetching</div>
     {:then $getRandomWord}
-        <!-- loop through each letter -->
         {#each $getRandomWord.word as letter}
             <div class="cell empty-cell">{letter}</div>
         {/each}
-    {/await}
+    {/await} -->
+    {#each $currentRandomWord.word as letter}
+        <div class="cell empty-cell">{letter}</div>
+    {:else}
+        <div class="fetching">...fetching</div>
+    {/each}
 </div>
 
 <!-- <div class="letter-options letter" bind:this={shuffledWord} use:shuffleWordRendered> -->
 <div class="letter-options letter" bind:this={shuffledWord}>
-    {#await $getRandomWord then $getRandomWord}
-        {#each $getRandomWord.shuffled_word as letter}
-            <div class="cell letter-cell">{letter}</div>
-        {/each}
-    {/await}
+    {#each $currentRandomWord.shuffled_word as letter}
+        <div class="cell letter-cell">{letter}</div>
+    {:else}
+        ..fetching
+    {/each}
 </div>
 
 <style>

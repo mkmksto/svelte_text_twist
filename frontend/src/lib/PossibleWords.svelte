@@ -1,5 +1,5 @@
 <script>
-    import { getRandomWord } from '../stores/gameSettings'
+    import { currentRandomWord } from '../stores/gameSettings'
 
     // onMount(() => {
     //     getRandomWord
@@ -8,16 +8,14 @@
 
 <div class="card">
     <div class="word-columns">
-        {#await $getRandomWord}
+        <!-- {#await $getRandomWord}
             <div class="fetching">...</div>
         {:then $getRandomWord}
-            <!-- the word itself as the first word -->
             <div class="word-cells">
                 {#each $getRandomWord.word as letterOfWord}
                     <div class="cell">{letterOfWord}</div>
                 {/each}
             </div>
-            <!-- populate the subwords -->
             {#each $getRandomWord.sub_words as sub_words}
                 <div class="word-cells">
                     {#each sub_words as sub_word}
@@ -25,7 +23,21 @@
                     {/each}
                 </div>
             {/each}
-        {/await}
+        {/await} -->
+        <div class="word-cells">
+            {#each $currentRandomWord.word as letterOfWord}
+                <div class="cell">{letterOfWord}</div>
+            {/each}
+        </div>
+        {#each $currentRandomWord.sub_words as sub_words}
+            <div class="word-cells">
+                {#each sub_words as subWordLetter}
+                    <div class="cell">{subWordLetter}</div>
+                {/each}
+            </div>
+        {:else}
+            <div class="fetching">...</div>
+        {/each}
     </div>
 </div>
 

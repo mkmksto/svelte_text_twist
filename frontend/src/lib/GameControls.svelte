@@ -1,4 +1,5 @@
 <script>
+    import { renewCurrentWord } from '../functions/dataFetching'
     import { gameSettings } from '../stores/gameSettings'
 
     function shuffleLetters() {
@@ -11,7 +12,7 @@
     <button class="btn">Give Up</button>
     <button class="btn">Clear</button>
     <button class="btn">Enter</button>
-    <button class="btn" on:click={() => ($gameSettings = $gameSettings)}>New Word</button>
+    <button class="btn" on:click={() => renewCurrentWord($gameSettings)}>New Word</button>
 </div>
 
 <style>
