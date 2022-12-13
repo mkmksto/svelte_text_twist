@@ -1,7 +1,8 @@
 <script>
     import { renewCurrentWord } from '../functions/dataFetching'
+    import { validateGuess } from '../functions/guessValidation'
     import { shuffleItems } from '../functions/math'
-    import { currentRandomWord, gameSettings } from '../stores/gameSettings'
+    import { currentGuess, currentRandomWord, gameSettings } from '../stores/gameSettings'
 
     function shuffleLetters() {
         const curShuffledWord = $currentRandomWord.shuffled_word
@@ -13,6 +14,16 @@
     function returnLettersToOriginalPlace() {
         $currentRandomWord.shuffled_word.forEach((letter) => (letter.letter_transferred = false))
         $currentRandomWord = $currentRandomWord
+        $currentGuess = []
+    }
+
+    function testGuess() {
+        const [isGuessInArray, idxOfGuess] = validateGuess(
+            $currentGuess.join(''),
+            $currentRandomWord.sub_words
+        )
+        console.log('is guess in array? ', isGuessInArray)
+        console.log('idx of guess', idxOfGuess)
     }
 </script>
 
@@ -20,7 +31,7 @@
     <button class="btn" on:click={shuffleLetters}>Twist</button>
     <button class="btn">Give Up</button>
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
-    <button class="btn">Enter</button>
+    <button class="btn" on:click={testGuess}>Enter</button>
     <button class="btn" on:click={() => renewCurrentWord($gameSettings)}>New Word</button>
 </div>
 

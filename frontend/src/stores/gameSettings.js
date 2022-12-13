@@ -20,7 +20,7 @@ export const tempGameSettings = writable({
     timer: 120,
 })
 
-export const currentRandomWord = writable({ shuffled_word: [], sub_words: '', word: '' })
+export const currentRandomWord = writable({ shuffled_word: [], sub_words: [], word: '' })
 
 export const currentGuess = writable([''])
 

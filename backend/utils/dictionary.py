@@ -21,7 +21,7 @@ class RandomWord:
         self.keys = list(data.keys())
 
     def get_random_word(self) -> str:
-        return random.choice(self.keys)
+        return random.choice(self.keys).lower()
 
     def get_rand_word_and_freq(self) -> dict[str, str]:
         """Get a random word and its corresponding frequency

@@ -17,14 +17,11 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- Twist shuffles the letters
-- Clear removes the letters from the boxes
 - guessing adds guess to particular box
 
 # To Do List
 
 - timer of 2 minutes
-- shuffle letters
 - skip button disabled when longest word has not been guessed
 - skippable if longest=Ok
 - SCORE tracker
