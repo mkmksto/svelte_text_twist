@@ -69,9 +69,9 @@
         try {
             console.log('current guess ', $currentGuess)
             const lastItem = $currentGuess[$currentGuess.length - 1]
-            const correspondingLetterFromCurrentWordStore = $currentRandomWord.shuffled_word.find(
-                (letter) => lastItem.id === letter.id
-            )
+            const correspondingLetterFromCurrentWordStore = $currentRandomWord.shuffled_word
+                .filter((letter) => letter.letter_transferred)
+                .find((letter) => lastItem.id === letter.id)
             if (!correspondingLetterFromCurrentWordStore) return
 
             $currentGuess.pop()
