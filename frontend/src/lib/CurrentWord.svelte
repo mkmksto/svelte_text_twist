@@ -23,7 +23,6 @@
     afterUpdate(() => {
         validLetters.set(new Set())
         validLetters.set(new Set($currentRandomWord.sub_words.join('')))
-        console.log('after update')
     })
 
     onDestroy(() => {
@@ -101,6 +100,15 @@
     {/each}
 </div>
 
+<!-- for debugging -->
+
+<!-- {#each $currentGuess as { letter, id } (id)}
+    -{letter}- {id.split('-')[0]} &nbsp;&nbsp;&nbsp;
+{/each}
+<br />
+{#each $currentRandomWord.shuffled_word.filter((letter) => !letter.letter_transferred) as { letter, id } (id)}
+    -{letter}- {id.split('-')[0]}&nbsp;&nbsp;&nbsp;
+{/each} -->
 <style>
     .letter {
         @apply flex mt-4 h-14;

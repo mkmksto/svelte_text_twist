@@ -28,23 +28,82 @@
         const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
         console.log('is guess in array? ', isGuessInArray)
         console.log('idx of guess', idxOfGuess)
-        console.log($validLetters)
+        console.log('valid letters: ', $validLetters)
     }
 
     function resetGuessStore() {
         $currentGuess = []
     }
 
-    function keyDownHandler(e) {
-        //
+    // have to re-implement these functions from CurrentWord.svelte
+    // because they have some slight differences
+    // that aren't worth creating a module for
+    function moveLetter(key) {
+        const clickedLetter = $currentRandomWord.shuffled_word.find(
+            (letter) => key === letter.letter
+        )
+        // as opposed to CurrentWord.svelte, we don't toggle
+        // because we'll use the backspace key to remove letters
+        // from the guessing area
+        clickedLetter.letter_transferred = true
+
+        $currentRandomWord = $currentRandomWord
+    }
+
+    function updateGuessStore(key) {
+        const clickedLetter = $currentRandomWord.shuffled_word.find(
+            (letter) => key === letter.letter
+        )
+        // console.log('previous guess ' $currentGuess)
+
+        // stop if letter with the same unique ID is already in the guess
+        // checks for same ids
+        const letterAlreadyInGuess = $currentGuess.some((letter) => letter.id === clickedLetter.id)
+        console.log('letter already in guess ', letterAlreadyInGuess)
+        if (letterAlreadyInGuess) return
+        $currentGuess = [...$currentGuess, { letter: clickedLetter.letter, id: clickedLetter.id }]
+        console.log('new current guess: ', $currentGuess)
+    }
+
+    function removeLetterFromGuess() {
+        try {
+            console.log('current guess ', $currentGuess)
+            const lastItem = $currentGuess[$currentGuess.length - 1]
+            const correspondingLetterFromCurrentWordStore = $currentRandomWord.shuffled_word.find(
+                (letter) => lastItem.id === letter.id
+            )
+
+            // const newGuessArray = [...$currentGuess]
+            // newGuessArray.pop()
+            // $currentGuess = newGuessArray
+            $currentGuess.pop()
+            $currentGuess = $currentGuess
+
+            correspondingLetterFromCurrentWordStore.letter_transferred = false
+            $currentRandomWord = $currentRandomWord
+        } catch (e) {}
     }
 </script>
 
 <svelte:window
     on:keydown={(e) => {
+        if (e.repeat) {
+            console.log('repeat key press: ', e.key)
+        }
+        if (e.key === 'Backspace') {
+            removeLetterFromGuess()
+            return
+        }
         if (e.key === ' ') shuffleLetters()
         if (e.key === 'Enter') testGuess()
         if (e.key === 'Escape') returnLettersToOriginalPlace()
+        if (!Array.from($validLetters).includes(e.key)) {
+            return
+        } else {
+            moveLetter(e.key)
+            updateGuessStore(e.key)
+        }
+        return
     }}
 />
 
@@ -58,7 +117,6 @@
         on:click={() => {
             renewCurrentWord($gameSettings)
             resetGuessStore()
-            // console.log($validLetters)
         }}>New Word</button
     >
 </div>
