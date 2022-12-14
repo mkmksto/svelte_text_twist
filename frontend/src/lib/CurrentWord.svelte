@@ -30,7 +30,7 @@
         $currentRandomWord = $currentRandomWord
     }
 
-    let count = 0
+    // let count = 0
 
     function updateGuessStore(letter, letterId) {
         const clickedLetter = $currentRandomWord.shuffled_word.find(
@@ -38,21 +38,36 @@
         )
 
         if (clickedLetter.letter_transferred) {
-            $currentGuess = [...$currentGuess, letter]
-            count++
+            $currentGuess = [...$currentGuess, { letter: letter, id: letterId }]
         } else {
-            const idx = $currentGuess.indexOf(clickedLetter.letter)
+            // const idx = $currentGuess.indexOf(clickedLetter)
+            const idx = $currentGuess.findIndex((letter) => letter.id === letterId)
+            console.log('idx ', idx)
+
             if (idx > -1) $currentGuess.splice(idx, 1)
             $currentGuess = $currentGuess
-            count--
         }
         console.log('new current guess', $currentGuess)
-        console.log('new ctr value: ', count)
+        // console.log('new ctr value: ', count)
     }
 </script>
 
 <div class="letter-guesses letter">
-    {#each $currentRandomWord.shuffled_word.filter((letter) => letter.letter_transferred) as { letter, id } (id)}
+    {#each $currentGuess as { letter, id } (id)}
+        <div
+            class="cell letter-cell "
+            in:receive={{ key: id }}
+            out:send={{ key: id }}
+            animate:flip={{ duration: 600 }}
+            on:click={() => {
+                moveLetter(id)
+                updateGuessStore(letter, id)
+            }}
+        >
+            {letter}
+        </div>
+    {/each}
+    <!-- {#each $currentRandomWord.shuffled_word.filter((letter) => letter.letter_transferred) as { letter, id } (id)}
         <div
             class="cell letter-cell"
             in:receive={{ key: id }}
@@ -65,10 +80,13 @@
         >
             {letter}
         </div>
-    {/each}
+    {/each} -->
 </div>
 
 <div class="letter-options letter">
+    <!-- {#each $currentGuess as }
+        
+    {/each} -->
     {#each $currentRandomWord.shuffled_word.filter((letter) => !letter.letter_transferred) as { letter, id } (id)}
         <div
             class="cell letter-cell"

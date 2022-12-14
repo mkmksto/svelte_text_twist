@@ -18,7 +18,7 @@
     }
 
     function testGuess() {
-        let store = $currentGuess
+        let store = $currentGuess.map((letterObj) => letterObj.letter)
         const curGuess = store.join('')
         const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
         console.log('is guess in array? ', isGuessInArray)
