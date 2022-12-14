@@ -23,4 +23,5 @@ export async function renewCurrentWord(gameSettings) {
     currentRandomWord.set({ shuffled_word: [], sub_words: [], word: '' })
     const backEndData = await fetchBackendWord(gameSettings)
     currentRandomWord.set(backEndData)
+    console.log(backEndData)
 }

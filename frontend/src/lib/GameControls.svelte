@@ -8,6 +8,7 @@
         gameSettings,
         validLetters,
     } from '../stores/gameSettings'
+    import { validatedGuessesStore } from '../stores/gameStates'
 
     function shuffleLetters() {
         const curShuffledWord = $currentRandomWord.shuffled_word
@@ -26,9 +27,15 @@
         let store = $currentGuess.map((letterObj) => letterObj.letter)
         const curGuess = store.join('')
         const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
+        if (isGuessInArray) {
+            $validatedGuessesStore = [...$validatedGuessesStore, curGuess]
+            $currentRandomWord.sub_words[idxOfGuess].has_been_guessed = true
+        }
+
         console.log('is guess in array? ', isGuessInArray)
         console.log('idx of guess', idxOfGuess)
-        console.log('valid letters: ', $validLetters)
+        // console.log('valid keyboard letters: ', $validLetters)
+        // console.log('list of valid guesses: ', $validatedGuessesStore)
     }
 
     function resetGuessStore() {
@@ -81,6 +88,10 @@
             $currentRandomWord = $currentRandomWord
         } catch (e) {}
     }
+
+    function resetValidLetters() {
+        validLetters.set(new Set())
+    }
 </script>
 
 <svelte:window
@@ -115,6 +126,7 @@
         on:click={() => {
             renewCurrentWord($gameSettings)
             resetGuessStore()
+            resetValidLetters()
         }}>New Word</button
     >
 </div>

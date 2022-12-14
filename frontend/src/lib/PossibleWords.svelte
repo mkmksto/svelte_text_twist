@@ -4,15 +4,23 @@
 
 <div class="card">
     <div class="word-columns">
-        {#each $currentRandomWord.sub_words as sub_words}
-            <div class="word-cells">
-                {#each sub_words as subWordLetter}
-                    <div class="cell">{subWordLetter}</div>
-                {/each}
-            </div>
+        {#if $currentRandomWord.sub_words.length > 0}
+            {#each $currentRandomWord.sub_words as { sub_word, id, has_been_guessed } (id)}
+                <div class="word-cells">
+                    {#if !has_been_guessed}
+                        {#each sub_word as subWordLetter}
+                            <div class="cell">{subWordLetter}</div>
+                        {/each}
+                    {:else}
+                        {#each sub_word as subWordLetter}
+                            <div class="cell has-been-guessed">{subWordLetter}</div>
+                        {/each}
+                    {/if}
+                </div>
+            {/each}
         {:else}
             <div class="fetching">...</div>
-        {/each}
+        {/if}
     </div>
 </div>
 
@@ -33,11 +41,15 @@
     }
 
     .word-cells {
-        @apply flex;
+        @apply flex select-none;
+    }
+
+    .cell.has-been-guessed {
+        @apply bg-pink-600 text-white;
     }
 
     .cell {
-        @apply flex justify-center items-center uppercase h-8 w-8 my-1 mx-0.5 bg-white text-neutral-500 rounded-sm;
+        @apply flex justify-center items-center uppercase h-8 w-7 my-1 mx-0.5 bg-white text-white rounded-sm;
     }
 
     .fetching {

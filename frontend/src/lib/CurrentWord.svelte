@@ -17,12 +17,13 @@
     onMount(async () => {
         await renewCurrentWord($gameSettings)
         currentGuess.set([])
-        validLetters.set(new Set($currentRandomWord.sub_words.join('')))
+        validLetters.set(new Set($currentRandomWord.word))
+        console.log('valid keyboard letters ', $validLetters)
     })
 
     afterUpdate(() => {
         validLetters.set(new Set())
-        validLetters.set(new Set($currentRandomWord.sub_words.join('')))
+        validLetters.set(new Set($currentRandomWord.word))
     })
 
     onDestroy(() => {

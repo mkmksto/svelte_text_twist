@@ -18,7 +18,7 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- iirc, anything inside {} can be valid js
+- improve animation, checl docs
 
 # To Do List
 

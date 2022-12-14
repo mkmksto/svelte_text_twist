@@ -70,6 +70,10 @@ def generate_random_word() -> dict:
 
     sub_words = dict_instance.get_subwords(rand_word, max_num=max_subwords)
     sub_words.insert(0, rand_word)
+    sub_words = [
+        {'sub_word': sub_word, 'id': str(uuid.uuid4()), 'has_been_guessed': False}
+        for sub_word in sub_words
+    ]
 
     shuffled_word = list(rand_word)
     shuffled_word = [
@@ -77,7 +81,8 @@ def generate_random_word() -> dict:
         for letter in shuffled_word
     ]
     random.shuffle(shuffled_word)
-    print(shuffled_word)
+    print(sub_words)
+    # print(shuffled_word)
 
     return {'word': rand_word, 'sub_words': sub_words, 'shuffled_word': shuffled_word}
 
