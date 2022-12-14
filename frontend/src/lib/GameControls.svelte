@@ -35,25 +35,22 @@
         $currentGuess = []
     }
 
-    // have to re-implement these functions from CurrentWord.svelte
-    // because they have some slight differences
-    // that aren't worth creating a module for
-    function moveLetter(key) {
-        const clickedLetter = $currentRandomWord.shuffled_word.find(
-            (letter) => key === letter.letter
-        )
-        // as opposed to CurrentWord.svelte, we don't toggle
-        // because we'll use the backspace key to remove letters
-        // from the guessing area
+    function updateCurRandomWord(key) {
+        const clickedLetter = $currentRandomWord.shuffled_word
+            .filter((letter) => !letter.letter_transferred)
+            .find((letter) => key === letter.letter)
+        if (!clickedLetter) return
         clickedLetter.letter_transferred = true
 
         $currentRandomWord = $currentRandomWord
     }
 
     function updateGuessStore(key) {
-        const clickedLetter = $currentRandomWord.shuffled_word.find(
-            (letter) => key === letter.letter
-        )
+        // only search from the letters that haven't been transferred yet
+        let clickedLetter = $currentRandomWord.shuffled_word
+            .filter((letter) => !letter.letter_transferred)
+            .find((letter) => key === letter.letter)
+        if (!clickedLetter) return
         // console.log('previous guess ' $currentGuess)
 
         // stop if letter with the same unique ID is already in the guess
@@ -61,21 +58,22 @@
         const letterAlreadyInGuess = $currentGuess.some((letter) => letter.id === clickedLetter.id)
         console.log('letter already in guess ', letterAlreadyInGuess)
         if (letterAlreadyInGuess) return
+
         $currentGuess = [...$currentGuess, { letter: clickedLetter.letter, id: clickedLetter.id }]
+
         console.log('new current guess: ', $currentGuess)
     }
 
     function removeLetterFromGuess() {
+        if ($currentGuess.length === 0) return
         try {
             console.log('current guess ', $currentGuess)
             const lastItem = $currentGuess[$currentGuess.length - 1]
             const correspondingLetterFromCurrentWordStore = $currentRandomWord.shuffled_word.find(
                 (letter) => lastItem.id === letter.id
             )
+            if (!correspondingLetterFromCurrentWordStore) return
 
-            // const newGuessArray = [...$currentGuess]
-            // newGuessArray.pop()
-            // $currentGuess = newGuessArray
             $currentGuess.pop()
             $currentGuess = $currentGuess
 
@@ -100,8 +98,8 @@
         if (!Array.from($validLetters).includes(e.key)) {
             return
         } else {
-            moveLetter(e.key)
             updateGuessStore(e.key)
+            updateCurRandomWord(e.key)
         }
         return
     }}
