@@ -18,7 +18,10 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- improve animation, checl docs
+- implement scoring
+- implement round tracking
+- implement give up btn
+- improve animation, check docs
 
 # To Do List
 
