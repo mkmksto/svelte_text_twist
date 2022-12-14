@@ -30,8 +30,6 @@
         $currentRandomWord = $currentRandomWord
     }
 
-    // let count = 0
-
     function updateGuessStore(letter, letterId) {
         const clickedLetter = $currentRandomWord.shuffled_word.find(
             (letter) => letterId === letter.id
@@ -40,15 +38,12 @@
         if (clickedLetter.letter_transferred) {
             $currentGuess = [...$currentGuess, { letter: letter, id: letterId }]
         } else {
-            // const idx = $currentGuess.indexOf(clickedLetter)
             const idx = $currentGuess.findIndex((letter) => letter.id === letterId)
-            console.log('idx ', idx)
 
             if (idx > -1) $currentGuess.splice(idx, 1)
             $currentGuess = $currentGuess
         }
         console.log('new current guess', $currentGuess)
-        // console.log('new ctr value: ', count)
     }
 </script>
 
@@ -66,27 +61,12 @@
         >
             {letter}
         </div>
+    {:else}
+        <div class="fetching" />
     {/each}
-    <!-- {#each $currentRandomWord.shuffled_word.filter((letter) => letter.letter_transferred) as { letter, id } (id)}
-        <div
-            class="cell letter-cell"
-            in:receive={{ key: id }}
-            out:send={{ key: id }}
-            animate:flip={{ duration: 600 }}
-            on:click={() => {
-                moveLetter(id)
-                updateGuessStore(letter, id)
-            }}
-        >
-            {letter}
-        </div>
-    {/each} -->
 </div>
 
 <div class="letter-options letter">
-    <!-- {#each $currentGuess as }
-        
-    {/each} -->
     {#each $currentRandomWord.shuffled_word.filter((letter) => !letter.letter_transferred) as { letter, id } (id)}
         <div
             class="cell letter-cell"
