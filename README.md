@@ -18,12 +18,6 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- ensure that the letter order click is preserved when showing the user's guess
-- maybe i can store the UUID inside the guess store as well
-- and then from lines 72 onward `CurrentWord.svelte`, iterate over the elements
-- how to:
-- { letter, id}, idx
-- use the above idx, maybe use some js on line 83 to get the item from the currentGuess store by idx
 - iirc, anything inside {} can be valid js
 
 # To Do List
@@ -31,7 +25,7 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - timer of 2 minutes
 - skip button disabled when longest word has not been guessed
 - skippable if longest=Ok
-- SCORE tracker
+- SCORE tracker (1000 points per letter, e.g. a 6-letter word would be 6k points)
 - ROUND tracker
 - Intersection observer that limits the num of words if the subwords intersect with the border of the card
 - check the tempSettings store thing, might not be nec. anymore
