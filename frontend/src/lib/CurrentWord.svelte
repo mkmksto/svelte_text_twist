@@ -48,22 +48,24 @@
 </script>
 
 <div class="letter-guesses letter">
-    {#each $currentGuess as { letter, id } (id)}
-        <div
-            class="cell letter-cell "
-            in:receive={{ key: id }}
-            out:send={{ key: id }}
-            animate:flip={{ duration: 600 }}
-            on:click={() => {
-                moveLetter(id)
-                updateGuessStore(letter, id)
-            }}
-        >
-            {letter}
-        </div>
+    {#if $currentGuess.length > 0}
+        {#each $currentGuess as { letter, id } (id)}
+            <div
+                class="cell letter-cell "
+                in:receive={{ key: id }}
+                out:send={{ key: id }}
+                animate:flip={{ duration: 600 }}
+                on:click={() => {
+                    moveLetter(id)
+                    updateGuessStore(letter, id)
+                }}
+            >
+                {letter}
+            </div>
+        {/each}
     {:else}
         <div class="fetching" />
-    {/each}
+    {/if}
 </div>
 
 <div class="letter-options letter">
