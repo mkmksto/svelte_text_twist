@@ -25,3 +25,5 @@ export const currentRandomWord = writable({ shuffled_word: [], sub_words: [], wo
 export const currentGuess = writable([])
 
 export const showModal = writable(false)
+
+export const validLetters = writable(new Set())

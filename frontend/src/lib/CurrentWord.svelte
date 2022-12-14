@@ -1,9 +1,14 @@
 <script>
-    import { onDestroy, onMount } from 'svelte'
+    import { afterUpdate, onDestroy, onMount } from 'svelte'
     import { flip } from 'svelte/animate'
     import { crossfade } from 'svelte/transition'
     import { renewCurrentWord } from '../functions/dataFetching'
-    import { currentGuess, currentRandomWord, gameSettings } from '../stores/gameSettings'
+    import {
+        currentGuess,
+        currentRandomWord,
+        gameSettings,
+        validLetters,
+    } from '../stores/gameSettings'
 
     const [send, receive] = crossfade({
         duration: 600,
@@ -12,10 +17,19 @@
     onMount(async () => {
         await renewCurrentWord($gameSettings)
         currentGuess.set([])
+        validLetters.set(new Set($currentRandomWord.sub_words.join('')))
+    })
+
+    afterUpdate(() => {
+        validLetters.set(new Set())
+        validLetters.set(new Set($currentRandomWord.sub_words.join('')))
+        console.log('after update')
     })
 
     onDestroy(() => {
-        console.log('cur word destroyed')
+        currentGuess.set([])
+        validLetters.set(new Set())
+        console.log('destroy??')
     })
 
     /**

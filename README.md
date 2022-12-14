@@ -5,6 +5,7 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - frontend: svelte iniviated using Vite
 - backend: Python Flask app
 - has a virtual environment called text_twist_venv (backend/text_twist_venv) containing all python dependencies
+- !IMPORTANT: the currentRandomWord is do be set from inside `CurrentWord.svelte`, it uses a function from `dataFetching.js` that populates it with the nec data after the backend fetch is successful
 
 # Animation
 

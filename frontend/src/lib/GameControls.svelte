@@ -2,7 +2,12 @@
     import { renewCurrentWord } from '../functions/dataFetching'
     import { validateGuess } from '../functions/guessValidation'
     import { shuffleItems } from '../functions/math'
-    import { currentGuess, currentRandomWord, gameSettings } from '../stores/gameSettings'
+    import {
+        currentGuess,
+        currentRandomWord,
+        gameSettings,
+        validLetters,
+    } from '../stores/gameSettings'
 
     function shuffleLetters() {
         const curShuffledWord = $currentRandomWord.shuffled_word
@@ -23,12 +28,25 @@
         const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
         console.log('is guess in array? ', isGuessInArray)
         console.log('idx of guess', idxOfGuess)
+        console.log($validLetters)
     }
 
     function resetGuessStore() {
         $currentGuess = []
     }
+
+    function keyDownHandler(e) {
+        //
+    }
 </script>
+
+<svelte:window
+    on:keydown={(e) => {
+        if (e.key === ' ') shuffleLetters()
+        if (e.key === 'Enter') testGuess()
+        if (e.key === 'Escape') returnLettersToOriginalPlace()
+    }}
+/>
 
 <div class="controls">
     <button class="btn" on:click={shuffleLetters}>Twist</button>
@@ -40,6 +58,7 @@
         on:click={() => {
             renewCurrentWord($gameSettings)
             resetGuessStore()
+            // console.log($validLetters)
         }}>New Word</button
     >
 </div>
