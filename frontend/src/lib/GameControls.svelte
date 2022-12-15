@@ -11,6 +11,7 @@
     } from '../stores/gameSettings'
     import {
         countdownLength,
+        currentRound,
         currentRoundScore,
         isGameWon,
         validatedGuessesStore,
@@ -175,6 +176,14 @@
         disabled
         on:click={() => {
             $countdownLength = Date.now() + 120000
+            $currentRound += 1
+            renewCurrentWord($gameSettings)
+            resetGuessStore()
+            resetValidLetters()
+            clearHeaderInterval()
+            renewInterval()
+            nextRoundBtn.disabled = true
+            nextRoundBtn.blur()
         }}>Next Round</button
     >
 </div>

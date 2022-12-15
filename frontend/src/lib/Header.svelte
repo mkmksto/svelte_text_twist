@@ -12,7 +12,7 @@
     import { afterUpdate, onMount, tick } from 'svelte'
     import Fa from 'svelte-fa'
     import { showModal } from '../stores/gameSettings'
-    import { countdownLength, currentRoundScore } from '../stores/gameStates'
+    import { countdownLength, currentRound, currentRoundScore } from '../stores/gameStates'
 
     // let countdownLength
 
@@ -79,7 +79,9 @@
         <span class="game-info"
             >Time: <li class="current-info" bind:this={gameInfoTimer} /></span
         >
-        <li>Round</li>
+        <span class="game-info"
+            >Round: <li class="current-info">{$currentRound}</li></span
+        >
         <li class="icons" on:click={openModal}>
             <Fa icon={faGear} size="1.5rem" />
         </li>
