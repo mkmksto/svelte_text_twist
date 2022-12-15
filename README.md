@@ -21,6 +21,7 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 - implement scoring
 - implement round tracking
 - implement give up btn
+- next round btn
 - improve animation, check docs
 
 # To Do List
