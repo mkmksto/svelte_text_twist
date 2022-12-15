@@ -18,10 +18,8 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 # Tomorrow To Do
 
-- implement scoring
-- implement round tracking
-- implement give up btn
-- next round btn
+- if timer == 0, and game won, move on to next round, and show the remaining unguessed words
+- implement give up btn, show what words they were
 - improve animation, check docs
 
 # To Do List

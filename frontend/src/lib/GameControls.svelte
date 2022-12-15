@@ -17,6 +17,7 @@
         countdownLength,
         currentRound,
         currentRoundScore,
+        isGameLost,
         isGameWon,
         validatedGuessesStore,
     } from '../stores/gameStates'
@@ -129,6 +130,7 @@
 <svelte:window
     on:keydown={async (e) => {
         if (e.repeat) return
+        if ($isGameLost) return
         if (e.key === 'Backspace') {
             removeLetterFromGuess()
             await sleep(200)
