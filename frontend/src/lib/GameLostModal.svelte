@@ -1,8 +1,18 @@
-<script></script>
+<script>
+    import { currentRound, isGameLost } from '../stores/gameStates'
+    import { newWordBtn } from './GameControls.svelte'
+</script>
 
 <div class="modal">
     <div class="modal-card">
-        <span class="you-lose">You Have Lost</span><button>Restart</button>
+        <span class="you-lose">You Have Lost</span><button
+            on:click={() => {
+                newWordBtn.click()
+                $isGameLost = false
+                $currentRound = 1
+                console.log('restart btn clicked')
+            }}>Restart</button
+        >
     </div>
 </div>
 

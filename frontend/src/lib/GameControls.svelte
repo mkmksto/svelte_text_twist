@@ -1,3 +1,7 @@
+<script context="module">
+    export let newWordBtn
+</script>
+
 <script>
     import { tick } from 'svelte'
     import { renewCurrentWord } from '../functions/dataFetching'
@@ -18,7 +22,7 @@
     } from '../stores/gameStates'
     import { clearHeaderInterval, renewInterval } from './Header.svelte'
 
-    let newWordBtn
+    // let newWordBtn
 
     function shuffleLetters() {
         const curShuffledWord = $currentRandomWord.shuffled_word
@@ -168,6 +172,7 @@
             $countdownLength = Date.now() + 120000
             clearHeaderInterval()
             renewInterval()
+            $isGameWon = false
         }}>New Word</button
     >
     <button
@@ -182,6 +187,7 @@
             resetValidLetters()
             clearHeaderInterval()
             renewInterval()
+            $isGameWon = false
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()
         }}>Next Round</button

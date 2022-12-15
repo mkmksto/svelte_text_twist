@@ -72,6 +72,7 @@
     function checkIfGameLost() {
         if (!$isGameWon && getRemainingSeconds() <= 0) {
             $isGameLost = true
+            $isGameWon = false
         }
     }
 
