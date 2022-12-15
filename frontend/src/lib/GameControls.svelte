@@ -9,7 +9,12 @@
         gameSettings,
         validLetters,
     } from '../stores/gameSettings'
-    import { countdownLength, currentRoundScore, validatedGuessesStore } from '../stores/gameStates'
+    import {
+        countdownLength,
+        currentRoundScore,
+        isGameWon,
+        validatedGuessesStore,
+    } from '../stores/gameStates'
     import { clearHeaderInterval, renewInterval } from './Header.svelte'
 
     let newWordBtn
@@ -102,6 +107,15 @@
         validLetters.set(new Set())
     }
 
+    let nextRoundBtn
+    function updateWinState() {
+        if ($currentRandomWord.sub_words[0].has_been_guessed === true) {
+            $isGameWon = true
+            nextRoundBtn.disabled = false
+            console.log('game won')
+        }
+    }
+
     function sleep(ms) {
         return new Promise((res) => setTimeout(res, ms))
     }
@@ -110,21 +124,21 @@
 <svelte:window
     on:keydown={async (e) => {
         if (e.repeat) return
-        await tick()
         if (e.key === 'Backspace') {
             removeLetterFromGuess()
             await sleep(200)
-            await tick()
             return
         }
         if (e.key === ' ') shuffleLetters()
-        if (e.key === 'Enter') testGuess()
+        if (e.key === 'Enter') {
+            testGuess()
+            updateWinState()
+        }
         if (e.key === 'Escape') returnLettersToOriginalPlace()
         if (Array.from($validLetters).includes(e.key)) {
             updateGuessStore(e.key)
             updateCurRandomWord(e.key)
         }
-        await tick()
     }}
 />
 
@@ -132,24 +146,31 @@
     <button class="btn" on:click={shuffleLetters}>Twist</button>
     <button class="btn" on:click={() => ($currentRoundScore = 0)}>Give Up</button>
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
-    <button class="btn" on:click={testGuess}>Enter</button>
+    <button
+        class="btn"
+        on:click={() => {
+            testGuess()
+            updateWinState()
+        }}>Enter</button
+    >
     <button
         class="btn"
         bind:this={newWordBtn}
         on:click={async () => {
-            await tick()
+            // await tick()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
             $currentRoundScore = 0
             newWordBtn.blur()
-            await tick()
+            // await tick()
             $countdownLength = Date.now() + 120000
             clearHeaderInterval()
             renewInterval()
         }}>New Word</button
     >
     <button
+        bind:this={nextRoundBtn}
         class="btn"
         disabled
         on:click={() => {

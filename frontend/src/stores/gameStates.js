@@ -7,3 +7,5 @@ export const currentRoundScore = writable(0)
 export const countdownLength = writable()
 
 export const currentRound = writable(1)
+
+export const isGameWon = writable(false)
