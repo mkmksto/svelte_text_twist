@@ -9,7 +9,9 @@
         gameSettings,
         validLetters,
     } from '../stores/gameSettings'
-    import { validatedGuessesStore } from '../stores/gameStates'
+    import { currentRoundScore, validatedGuessesStore } from '../stores/gameStates'
+
+    let newWordBtn
 
     function shuffleLetters() {
         const curShuffledWord = $currentRandomWord.shuffled_word
@@ -18,7 +20,8 @@
         $currentRandomWord.shuffled_word = newArr
     }
 
-    function returnLettersToOriginalPlace() {
+    async function returnLettersToOriginalPlace() {
+        await tick()
         $currentRandomWord.shuffled_word.forEach((letter) => (letter.letter_transferred = false))
         $currentRandomWord = $currentRandomWord
         $currentGuess = []
@@ -28,10 +31,13 @@
         let store = $currentGuess.map((letterObj) => letterObj.letter)
         const curGuess = store.join('')
         const [isGuessInArray, idxOfGuess] = validateGuess(curGuess, $currentRandomWord.sub_words)
-        if (isGuessInArray) {
-            $validatedGuessesStore = [...$validatedGuessesStore, curGuess]
-            $currentRandomWord.sub_words[idxOfGuess].has_been_guessed = true
+        if (!isGuessInArray) return
+
+        $validatedGuessesStore = [...$validatedGuessesStore, curGuess]
+        if (!$currentRandomWord.sub_words[idxOfGuess].has_been_guessed) {
+            $currentRoundScore += curGuess.length * 1000
         }
+        $currentRandomWord.sub_words[idxOfGuess].has_been_guessed = true
 
         console.log('is guess in array? ', isGuessInArray)
         console.log('idx of guess', idxOfGuess)
@@ -94,6 +100,10 @@
     function resetValidLetters() {
         validLetters.set(new Set())
     }
+
+    function sleep(ms) {
+        return new Promise((res) => setTimeout(res, ms))
+    }
 </script>
 
 <svelte:window
@@ -102,6 +112,8 @@
         await tick()
         if (e.key === 'Backspace') {
             removeLetterFromGuess()
+            await sleep(200)
+            await tick()
             return
         }
         if (e.key === ' ') shuffleLetters()
@@ -117,16 +129,19 @@
 
 <div class="controls">
     <button class="btn" on:click={shuffleLetters}>Twist</button>
-    <button class="btn">Give Up</button>
+    <button class="btn" on:click={() => ($currentRoundScore = 0)}>Give Up</button>
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
     <button class="btn" on:click={testGuess}>Enter</button>
     <button
         class="btn"
+        bind:this={newWordBtn}
         on:click={async () => {
             await tick()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
+            $currentRoundScore = 0
+            newWordBtn.blur()
             await tick()
         }}>New Word</button
     >
