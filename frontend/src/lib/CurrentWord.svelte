@@ -1,6 +1,7 @@
 <script>
     import { afterUpdate, onDestroy, onMount } from 'svelte'
     import { flip } from 'svelte/animate'
+    import { quintOut } from 'svelte/easing'
     import { crossfade } from 'svelte/transition'
     import { renewCurrentWord } from '../functions/dataFetching'
     import {
@@ -11,7 +12,21 @@
     } from '../stores/gameSettings'
 
     const [send, receive] = crossfade({
-        duration: 600,
+        duration: (d) => Math.sqrt(d * 500),
+
+        fallback(node, params) {
+            const style = getComputedStyle(node)
+            const transform = style.transform === 'none' ? '' : style.transform
+
+            return {
+                duration: 600,
+                easing: quintOut,
+                css: (t) => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`,
+            }
+        },
     })
 
     onMount(async () => {

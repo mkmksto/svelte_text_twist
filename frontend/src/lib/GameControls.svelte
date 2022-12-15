@@ -1,4 +1,5 @@
 <script>
+    import { tick } from 'svelte'
     import { renewCurrentWord } from '../functions/dataFetching'
     import { validateGuess } from '../functions/guessValidation'
     import { shuffleItems } from '../functions/math'
@@ -73,6 +74,7 @@
 
     function removeLetterFromGuess() {
         if ($currentGuess.length === 0) return
+
         try {
             console.log('current guess ', $currentGuess)
             const lastItem = $currentGuess[$currentGuess.length - 1]
@@ -95,10 +97,9 @@
 </script>
 
 <svelte:window
-    on:keydown={(e) => {
-        if (e.repeat) {
-            console.log('repeat key press: ', e.key)
-        }
+    on:keydown={async (e) => {
+        if (e.repeat) return
+        await tick()
         if (e.key === 'Backspace') {
             removeLetterFromGuess()
             return
@@ -106,13 +107,11 @@
         if (e.key === ' ') shuffleLetters()
         if (e.key === 'Enter') testGuess()
         if (e.key === 'Escape') returnLettersToOriginalPlace()
-        if (!Array.from($validLetters).includes(e.key)) {
-            return
-        } else {
+        if (Array.from($validLetters).includes(e.key)) {
             updateGuessStore(e.key)
             updateCurRandomWord(e.key)
         }
-        return
+        await tick()
     }}
 />
 
@@ -123,10 +122,12 @@
     <button class="btn" on:click={testGuess}>Enter</button>
     <button
         class="btn"
-        on:click={() => {
+        on:click={async () => {
+            await tick()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
+            await tick()
         }}>New Word</button
     >
 </div>
