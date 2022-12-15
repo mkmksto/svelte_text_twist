@@ -12,7 +12,13 @@
     import { afterUpdate, onMount, tick } from 'svelte'
     import Fa from 'svelte-fa'
     import { showModal } from '../stores/gameSettings'
-    import { countdownLength, currentRound, currentRoundScore } from '../stores/gameStates'
+    import {
+        countdownLength,
+        currentRound,
+        currentRoundScore,
+        isGameLost,
+        isGameWon,
+    } from '../stores/gameStates'
 
     // let countdownLength
 
@@ -37,6 +43,7 @@
         interval = setInterval(() => {
             const remaining = getRemainingSeconds()
             gameInfoTimer.innerHTML = getDisplayTimer(remaining)
+            checkIfGameLost()
 
             if (remaining <= 0) {
                 clearInterval(interval)
@@ -62,9 +69,11 @@
         return `0${minutes}: ${seconds}`
     }
 
-    // function clearHeaderInterval() {
-    //     clearInterval(interval)
-    // }
+    function checkIfGameLost() {
+        if (!$isGameWon && getRemainingSeconds() <= 0) {
+            $isGameLost = true
+        }
+    }
 
     function openModal() {
         $showModal = true

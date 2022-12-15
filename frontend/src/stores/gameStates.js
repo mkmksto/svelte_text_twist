@@ -9,3 +9,5 @@ export const countdownLength = writable()
 export const currentRound = writable(1)
 
 export const isGameWon = writable(false)
+
+export const isGameLost = writable(false)
