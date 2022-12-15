@@ -7,15 +7,11 @@
         {#if $currentRandomWord.sub_words.length > 0}
             {#each $currentRandomWord.sub_words as { sub_word, id, has_been_guessed } (id)}
                 <div class="word-cells">
-                    {#if !has_been_guessed}
-                        {#each sub_word as subWordLetter}
-                            <div class="cell">{subWordLetter}</div>
-                        {/each}
-                    {:else}
-                        {#each sub_word as subWordLetter}
-                            <div class="cell has-been-guessed">{subWordLetter}</div>
-                        {/each}
-                    {/if}
+                    {#each sub_word as subWordLetter}
+                        <div class="cell" class:has-been-guessed={has_been_guessed}>
+                            {subWordLetter}
+                        </div>
+                    {/each}
                 </div>
             {/each}
         {:else}
@@ -46,6 +42,7 @@
 
     .cell.has-been-guessed {
         @apply bg-pink-600 text-white;
+        transition: background-color 0.5s ease;
     }
 
     .cell {
