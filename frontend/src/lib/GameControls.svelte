@@ -9,7 +9,8 @@
         gameSettings,
         validLetters,
     } from '../stores/gameSettings'
-    import { currentRoundScore, validatedGuessesStore } from '../stores/gameStates'
+    import { countdownLength, currentRoundScore, validatedGuessesStore } from '../stores/gameStates'
+    import { clearHeaderInterval } from './Header.svelte'
 
     let newWordBtn
 
@@ -143,7 +144,16 @@
             $currentRoundScore = 0
             newWordBtn.blur()
             await tick()
+            // $countdownLength = Date.now() + 120000
+            clearHeaderInterval()
         }}>New Word</button
+    >
+    <button
+        class="btn"
+        disabled
+        on:click={() => {
+            $countdownLength = Date.now() + 120000
+        }}>Next Round</button
     >
 </div>
 
@@ -154,5 +164,9 @@
 
     .btn {
         @apply mx-4 py-2 px-4 bg-neutral-400 hover:bg-neutral-500 text-neutral-50;
+    }
+
+    .btn:disabled {
+        @apply bg-neutral-200;
     }
 </style>

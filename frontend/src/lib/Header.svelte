@@ -1,8 +1,68 @@
+<script context="module">
+    let interval
+    export function clearHeaderInterval() {
+        clearInterval(interval)
+        console.log('clearing interval')
+    }
+</script>
+
 <script>
     import { faGear } from '@fortawesome/free-solid-svg-icons'
+    import { afterUpdate, onMount, tick } from 'svelte'
     import Fa from 'svelte-fa'
     import { showModal } from '../stores/gameSettings'
-    import { currentRoundScore } from '../stores/gameStates'
+    import { countdownLength, currentRoundScore } from '../stores/gameStates'
+
+    // let countdownLength
+
+    // let interval
+    let gameInfoTimer
+    onMount(async () => {
+        await tick()
+        setNewCountdownLength()
+        renewHeaderInterval()
+    })
+
+    afterUpdate(() => {
+        // setNewCountdownLength()
+        // renewInterval()
+        // console.log(interval)
+        // clearInterval(interval)
+        // console.log('after update')
+    })
+
+    function renewHeaderInterval() {
+        interval = setInterval(() => {
+            const remaining = getRemainingSeconds()
+            gameInfoTimer.innerHTML = getDisplayTimer(remaining)
+
+            if (remaining <= 0) {
+                clearInterval(interval)
+                console.log('clearing interval')
+            }
+        }, 1000)
+    }
+
+    function setNewCountdownLength() {
+        $countdownLength = Date.now() + 120000
+    }
+
+    function getRemainingSeconds() {
+        const now = Date.now()
+        const remaining = Math.floor(($countdownLength - now) / 1000)
+        return remaining
+    }
+
+    function getDisplayTimer(remainingSeconds) {
+        const minutes = Math.floor(remainingSeconds / 60)
+        let seconds = (remainingSeconds - minutes * 60).toString()
+        seconds = seconds.length > 1 ? seconds : `0${seconds}`
+        return `0${minutes}: ${seconds}`
+    }
+
+    // function clearHeaderInterval() {
+    //     clearInterval(interval)
+    // }
 
     function openModal() {
         $showModal = true
@@ -12,9 +72,11 @@
 <nav class="header">
     <ul>
         <span class="game-info"
-            >Score: <li class="score">{$currentRoundScore}</li></span
+            >Score: <li class="current-info">{$currentRoundScore}</li></span
         >
-        <li>Time</li>
+        <span class="game-info"
+            >Time: <li class="current-info" bind:this={gameInfoTimer} /></span
+        >
         <li>Round</li>
         <li class="icons" on:click={openModal}>
             <Fa icon={faGear} size="1.5rem" />
@@ -36,7 +98,7 @@
         display: flex;
     }
 
-    .score {
+    .current-info {
         @apply ml-4;
         font-family: 'Roboto Mono';
     }

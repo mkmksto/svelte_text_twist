@@ -39,6 +39,7 @@
     afterUpdate(() => {
         validLetters.set(new Set())
         validLetters.set(new Set($currentRandomWord.word))
+        console.log('current word after update')
     })
 
     onDestroy(() => {
