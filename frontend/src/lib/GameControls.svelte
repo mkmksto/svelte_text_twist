@@ -10,7 +10,7 @@
         validLetters,
     } from '../stores/gameSettings'
     import { countdownLength, currentRoundScore, validatedGuessesStore } from '../stores/gameStates'
-    import { clearHeaderInterval } from './Header.svelte'
+    import { clearHeaderInterval, renewInterval } from './Header.svelte'
 
     let newWordBtn
 
@@ -144,8 +144,9 @@
             $currentRoundScore = 0
             newWordBtn.blur()
             await tick()
-            // $countdownLength = Date.now() + 120000
+            $countdownLength = Date.now() + 120000
             clearHeaderInterval()
+            renewInterval()
         }}>New Word</button
     >
     <button

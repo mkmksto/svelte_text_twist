@@ -1,5 +1,6 @@
 <script context="module">
     let interval
+    export let renewInterval
     export function clearHeaderInterval() {
         clearInterval(interval)
         console.log('clearing interval')
@@ -31,6 +32,7 @@
         // console.log('after update')
     })
 
+    renewInterval = renewHeaderInterval
     function renewHeaderInterval() {
         interval = setInterval(() => {
             const remaining = getRemainingSeconds()
