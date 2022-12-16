@@ -138,6 +138,8 @@
             updateGuessStore(e.key)
             updateCurRandomWord(e.key)
         }
+
+        resetGameBtn.blur()
     }}
 />
 
@@ -190,6 +192,8 @@
             clearHeaderInterval()
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()
+            revealYourSecrets()
+            console.log('reveal')
             await renewCurrentWord($gameSettings)
 
             $countdownLength = Date.now() + $gameSettings.timer * 1000
