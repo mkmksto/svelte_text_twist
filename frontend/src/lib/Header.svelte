@@ -41,10 +41,6 @@
         }, 1000)
     }
 
-    // function setNewCountdownLength() {
-    //     $countdownLength = Date.now() + 120000
-    // }
-
     function getRemainingSeconds() {
         const now = Date.now()
         const remaining = Math.floor(($countdownLength - now) / 1000)
@@ -63,7 +59,7 @@
             revealYourSecrets()
             setGameLostStatus(true)
             setGameWonStatus(false)
-        } else if (isGameWon && getRemainingSeconds() <= 0) {
+        } else if ($isGameWon && getRemainingSeconds() <= 0) {
             revealYourSecrets()
             setGameLostStatus(false)
             setGameWonStatus(false)

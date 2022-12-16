@@ -171,7 +171,7 @@
             nextRoundBtn.blur()
             await renewCurrentWord($gameSettings)
 
-            $countdownLength = Date.now() + 120000
+            $countdownLength = Date.now() + $gameSettings.timer * 1000
             renewInterval()
             resetGuessStore()
             resetValidLetters()
@@ -192,7 +192,7 @@
             nextRoundBtn.blur()
             await renewCurrentWord($gameSettings)
 
-            $countdownLength = Date.now() + 120000
+            $countdownLength = Date.now() + $gameSettings.timer * 1000
             renewInterval()
             resetGuessStore()
             resetValidLetters()

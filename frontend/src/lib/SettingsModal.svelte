@@ -21,6 +21,7 @@
 
     function saveSettingsAndRestart() {
         renewCurrentWord($gameSettings)
+        $gameSettings = $tempGameSettings
         resetGameBtn.click()
         hideModal()
     }

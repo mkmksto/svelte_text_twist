@@ -33,7 +33,7 @@
 
     onMount(async () => {
         await renewCurrentWord($gameSettings)
-        $countdownLength = Date.now() + 120000
+        $countdownLength = Date.now() + $gameSettings.timer * 1000
         clearHeaderInterval()
         renewInterval()
         currentGuess.set([])
