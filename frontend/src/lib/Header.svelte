@@ -9,7 +9,6 @@
 
 <script>
     import { faGear } from '@fortawesome/free-solid-svg-icons'
-    import { onMount, tick } from 'svelte'
     import Fa from 'svelte-fa'
     import { showModal } from '../stores/gameSettings'
     import {
@@ -23,11 +22,11 @@
     } from '../stores/gameStates'
 
     let gameInfoTimer
-    onMount(async () => {
-        await tick()
-        setNewCountdownLength()
-        renewHeaderInterval()
-    })
+    // onMount(async () => {
+    //     await tick()
+    //     setNewCountdownLength()
+    //     renewHeaderInterval()
+    // })
 
     renewInterval = renewHeaderInterval
     function renewHeaderInterval() {

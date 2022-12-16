@@ -32,7 +32,7 @@
     })
 
     onMount(async () => {
-        clearHeaderInterval()
+        // clearHeaderInterval()
         await renewCurrentWord($gameSettings)
         $countdownLength = Date.now() + 120000
         clearHeaderInterval()
