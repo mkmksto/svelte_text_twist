@@ -41,9 +41,9 @@
         }, 1000)
     }
 
-    function setNewCountdownLength() {
-        $countdownLength = Date.now() + 120000
-    }
+    // function setNewCountdownLength() {
+    //     $countdownLength = Date.now() + 120000
+    // }
 
     function getRemainingSeconds() {
         const now = Date.now()
