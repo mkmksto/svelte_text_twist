@@ -20,15 +20,13 @@ My implementation of text twist with Svelte on the frontend and Flask on the bac
 
 - if timer == 0, and game won, move on to next round, and show the remaining unguessed words
 - implement give up btn, show what words they were
+- show answers if (game lost, next round, new word, give up)
 - improve animation, check docs
 
 # To Do List
 
-- timer of 2 minutes
-- skip button disabled when longest word has not been guessed
 - skippable if longest=Ok
-- SCORE tracker (1000 points per letter, e.g. a 6-letter word would be 6k points)
-- ROUND tracker
+- clicking settings pauses the game
 - Intersection observer that limits the num of words if the subwords intersect with the border of the card
 - check the tempSettings store thing, might not be nec. anymore
 - ^ or simply resize the card to accomodate the num of words
