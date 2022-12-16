@@ -163,11 +163,12 @@
     <button
         class="btn"
         bind:this={resetGameBtn}
-        on:click={() => {
-            $countdownLength = Date.now() + 120000
+        on:click={async () => {
             clearHeaderInterval()
+            await renewCurrentWord($gameSettings)
+
+            $countdownLength = Date.now() + 120000
             renewInterval()
-            renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
             setGameWonStatus(false)
@@ -181,11 +182,12 @@
         bind:this={nextRoundBtn}
         class="btn"
         disabled
-        on:click={() => {
-            $countdownLength = Date.now() + 120000
+        on:click={async () => {
             clearHeaderInterval()
+            await renewCurrentWord($gameSettings)
+
+            $countdownLength = Date.now() + 120000
             renewInterval()
-            renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
             setGameWonStatus(false)
