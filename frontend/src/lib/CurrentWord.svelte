@@ -33,19 +33,16 @@
         await renewCurrentWord($gameSettings)
         currentGuess.set([])
         validLetters.set(new Set($currentRandomWord.word))
-        console.log('valid keyboard letters ', $validLetters)
     })
 
     afterUpdate(() => {
         validLetters.set(new Set())
         validLetters.set(new Set($currentRandomWord.word))
-        console.log('current word after update')
     })
 
     onDestroy(() => {
         currentGuess.set([])
         validLetters.set(new Set())
-        console.log('destroy??')
     })
 
     /**
@@ -73,7 +70,6 @@
             if (idx > -1) $currentGuess.splice(idx, 1)
             $currentGuess = $currentGuess
         }
-        console.log('new current guess', $currentGuess)
     }
 </script>
 

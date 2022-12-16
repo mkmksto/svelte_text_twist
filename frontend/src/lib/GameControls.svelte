@@ -56,9 +56,6 @@
         $currentRandomWord.sub_words[idxOfGuess].has_been_guessed = true
 
         console.log('is guess in array? ', isGuessInArray)
-        console.log('idx of guess', idxOfGuess)
-        // console.log('valid keyboard letters: ', $validLetters)
-        // console.log('list of valid guesses: ', $validatedGuessesStore)
     }
 
     function resetGuessStore() {
@@ -81,24 +78,19 @@
             .filter((letter) => !letter.letter_transferred)
             .find((letter) => key === letter.letter)
         if (!clickedLetter) return
-        // console.log('previous guess ' $currentGuess)
 
         // stop if letter with the same unique ID is already in the guess
         // checks for same ids
         const letterAlreadyInGuess = $currentGuess.some((letter) => letter.id === clickedLetter.id)
-        console.log('letter already in guess ', letterAlreadyInGuess)
         if (letterAlreadyInGuess) return
 
         $currentGuess = [...$currentGuess, { letter: clickedLetter.letter, id: clickedLetter.id }]
-
-        console.log('new current guess: ', $currentGuess)
     }
 
     function removeLetterFromGuess() {
         if ($currentGuess.length === 0) return
 
         try {
-            console.log('current guess ', $currentGuess)
             const lastItem = $currentGuess[$currentGuess.length - 1]
             const correspondingLetterFromCurrentWordStore = $currentRandomWord.shuffled_word
                 .filter((letter) => letter.letter_transferred)
