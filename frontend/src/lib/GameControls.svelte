@@ -19,6 +19,8 @@
         currentRoundScore,
         isGameLost,
         isGameWon,
+        revealYourSecrets,
+        setGameToLost,
         validatedGuessesStore,
     } from '../stores/gameStates'
     import { clearHeaderInterval, renewInterval } from './Header.svelte'
@@ -151,7 +153,14 @@
 
 <div class="controls">
     <button class="btn" on:click={shuffleLetters}>Twist</button>
-    <button class="btn" on:click={() => ($currentRoundScore = 0)}>Give Up</button>
+    <button
+        class="btn"
+        on:click={() => {
+            $currentRoundScore = 0
+            revealYourSecrets()
+            setGameToLost()
+        }}>Give Up</button
+    >
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
     <button
         class="btn"

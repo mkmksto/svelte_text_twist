@@ -18,6 +18,7 @@
         currentRoundScore,
         isGameLost,
         isGameWon,
+        revealYourSecrets,
     } from '../stores/gameStates'
 
     // let countdownLength
@@ -73,6 +74,7 @@
         if (!$isGameWon && getRemainingSeconds() <= 0) {
             $isGameLost = true
             $isGameWon = false
+            revealYourSecrets()
         }
     }
 
