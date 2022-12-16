@@ -2,6 +2,7 @@
     import { onMount } from 'svelte'
     import { renewCurrentWord } from '../functions/dataFetching'
     import { gameSettings, showModal, tempGameSettings } from '../stores/gameSettings'
+    import { resetGameBtn } from './GameControls.svelte'
 
     onMount(() => {
         $tempGameSettings = $gameSettings
@@ -20,6 +21,7 @@
 
     function saveSettingsAndRestart() {
         renewCurrentWord($gameSettings)
+        resetGameBtn.click()
         hideModal()
     }
 </script>

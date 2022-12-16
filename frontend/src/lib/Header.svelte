@@ -63,6 +63,10 @@
             revealYourSecrets()
             setGameLostStatus(true)
             setGameWonStatus(false)
+        } else if (isGameWon && getRemainingSeconds() <= 0) {
+            revealYourSecrets()
+            setGameLostStatus(false)
+            setGameWonStatus(false)
         }
     }
 

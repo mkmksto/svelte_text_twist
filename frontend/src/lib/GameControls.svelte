@@ -123,18 +123,18 @@
     on:keydown={async (e) => {
         if (e.repeat) return
         if ($isGameLost) return
+
         if (e.key === 'Backspace') {
             removeLetterFromGuess()
             await sleep(200)
-            return
-        }
-        if (e.key === ' ') shuffleLetters()
-        if (e.key === 'Enter') {
+        } else if (e.key === ' ') {
+            shuffleLetters()
+        } else if (e.key === 'Enter') {
             testGuess()
             updateWinState()
-        }
-        if (e.key === 'Escape') returnLettersToOriginalPlace()
-        if (Array.from($validLetters).includes(e.key)) {
+        } else if (e.key === 'Escape') {
+            returnLettersToOriginalPlace()
+        } else if (Array.from($validLetters).includes(e.key)) {
             updateGuessStore(e.key)
             updateCurRandomWord(e.key)
         }
@@ -180,10 +180,12 @@
     >
     <button
         bind:this={nextRoundBtn}
-        class="btn"
+        class="btn next-round-btn"
         disabled
         on:click={async () => {
             clearHeaderInterval()
+            nextRoundBtn.disabled = true
+            nextRoundBtn.blur()
             await renewCurrentWord($gameSettings)
 
             $countdownLength = Date.now() + 120000
@@ -193,8 +195,6 @@
             setGameWonStatus(false)
 
             incrementCurrentRound()
-            nextRoundBtn.disabled = true
-            nextRoundBtn.blur()
         }}>Next Round</button
     >
 </div>
@@ -206,6 +206,10 @@
 
     .btn {
         @apply mx-4 py-2 px-4 bg-neutral-400 hover:bg-neutral-500 text-neutral-50;
+    }
+
+    .next-round-btn {
+        @apply bg-orange-500 hover:bg-orange-700;
     }
 
     .btn:disabled {

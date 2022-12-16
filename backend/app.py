@@ -50,7 +50,7 @@ def generate_random_word() -> dict:
     """
 
     params: dict = request.json
-    pprint(params)
+    # pprint(params)
     min_chars = params.get('min_chars', 6)
     max_chars = params.get('max_chars', 12)
     diff: str = params.get('difficulty', 'medium')
@@ -58,9 +58,9 @@ def generate_random_word() -> dict:
     max_subwords = params.get('max_subwords', 20)
 
     while True:
+        print('fetching new word....')
         rand_word = dict_instance.get_random_word()
         frequency = dict_instance.get_frequency(rand_word)
-        print(rand_word)
         if (
             len(rand_word) < max_chars
             and len(rand_word) > min_chars
@@ -81,9 +81,8 @@ def generate_random_word() -> dict:
         for letter in shuffled_word
     ]
     random.shuffle(shuffled_word)
-    print(sub_words)
-    # print(shuffled_word)
 
+    print('final word: ', rand_word)
     return {'word': rand_word, 'sub_words': sub_words, 'shuffled_word': shuffled_word}
 
 
