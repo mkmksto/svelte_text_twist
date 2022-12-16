@@ -27,10 +27,6 @@ export function revealYourSecrets() {
     unsub()
 }
 
-export function setGameToLost() {
-    isGameLost.set(true)
-}
-
 export function incrementCurrentRound() {
     let prevRound
     const unsub = currentRound.subscribe((round) => (prevRound = round))

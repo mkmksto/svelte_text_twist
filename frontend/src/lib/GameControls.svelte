@@ -18,6 +18,7 @@
         currentRoundScore,
         incrementCurrentRound,
         isGameLost,
+        resetCurrentRound,
         resetScore,
         resetValidLetters,
         revealYourSecrets,
@@ -169,8 +170,10 @@
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
-            resetScore()
             setGameWonStatus(false)
+
+            resetCurrentRound()
+            resetScore()
             resetGameBtn.blur()
         }}>Reset Game</button
     >
@@ -186,6 +189,7 @@
             resetGuessStore()
             resetValidLetters()
             setGameWonStatus(false)
+
             incrementCurrentRound()
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()

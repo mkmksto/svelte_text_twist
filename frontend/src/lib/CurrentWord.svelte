@@ -10,6 +10,7 @@
         gameSettings,
         validLetters,
     } from '../stores/gameSettings'
+    import { clearHeaderInterval } from './Header.svelte'
 
     const [send, receive] = crossfade({
         duration: (d) => Math.sqrt(d * 500),
@@ -30,6 +31,7 @@
     })
 
     onMount(async () => {
+        clearHeaderInterval()
         await renewCurrentWord($gameSettings)
         currentGuess.set([])
         validLetters.set(new Set($currentRandomWord.word))
