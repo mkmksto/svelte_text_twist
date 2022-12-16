@@ -150,6 +150,8 @@
             revealYourSecrets()
             setGameLostStatus(true)
             clearHeaderInterval()
+            nextRoundBtn.disabled = true
+            nextRoundBtn.blur()
         }}>Give Up</button
     >
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
@@ -165,6 +167,8 @@
         bind:this={resetGameBtn}
         on:click={async () => {
             clearHeaderInterval()
+            nextRoundBtn.disabled = true
+            nextRoundBtn.blur()
             await renewCurrentWord($gameSettings)
 
             $countdownLength = Date.now() + 120000
