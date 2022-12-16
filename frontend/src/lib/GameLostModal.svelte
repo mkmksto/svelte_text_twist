@@ -1,13 +1,13 @@
 <script>
     import { currentRound, isGameLost } from '../stores/gameStates'
-    import { newWordBtn } from './GameControls.svelte'
+    import { resetGameBtn } from './GameControls.svelte'
 </script>
 
 <div class="modal">
     <div class="modal-card">
         <span class="you-lose">Game Over</span><button
             on:click={() => {
-                newWordBtn.click()
+                resetGameBtn.click()
                 $isGameLost = false
                 $currentRound = 1
                 console.log('restart btn clicked')

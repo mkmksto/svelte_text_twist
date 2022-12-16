@@ -9,34 +9,24 @@
 
 <script>
     import { faGear } from '@fortawesome/free-solid-svg-icons'
-    import { afterUpdate, onMount, tick } from 'svelte'
+    import { onMount, tick } from 'svelte'
     import Fa from 'svelte-fa'
     import { showModal } from '../stores/gameSettings'
     import {
         countdownLength,
         currentRound,
         currentRoundScore,
-        isGameLost,
         isGameWon,
         revealYourSecrets,
+        setGameLostStatus,
+        setGameWonStatus,
     } from '../stores/gameStates'
 
-    // let countdownLength
-
-    // let interval
     let gameInfoTimer
     onMount(async () => {
         await tick()
         setNewCountdownLength()
         renewHeaderInterval()
-    })
-
-    afterUpdate(() => {
-        // setNewCountdownLength()
-        // renewInterval()
-        // console.log(interval)
-        // clearInterval(interval)
-        // console.log('after update')
     })
 
     renewInterval = renewHeaderInterval
@@ -48,7 +38,6 @@
 
             if (remaining <= 0) {
                 clearInterval(interval)
-                console.log('clearing interval')
             }
         }, 1000)
     }
@@ -72,9 +61,9 @@
 
     function checkIfGameLost() {
         if (!$isGameWon && getRemainingSeconds() <= 0) {
-            $isGameLost = true
-            $isGameWon = false
             revealYourSecrets()
+            setGameLostStatus(true)
+            setGameWonStatus(false)
         }
     }
 

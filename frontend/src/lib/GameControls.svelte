@@ -1,5 +1,5 @@
 <script context="module">
-    export let newWordBtn
+    export let resetGameBtn
 </script>
 
 <script>
@@ -18,11 +18,10 @@
         currentRoundScore,
         incrementCurrentRound,
         isGameLost,
-        isGameWon,
         resetScore,
         resetValidLetters,
         revealYourSecrets,
-        setGameToLost,
+        setGameLostStatus,
         setGameWonStatus,
         validatedGuessesStore,
     } from '../stores/gameStates'
@@ -117,9 +116,8 @@
     let nextRoundBtn
     function updateWinState() {
         if ($currentRandomWord.sub_words[0].has_been_guessed === true) {
-            $isGameWon = true
+            setGameWonStatus(true)
             nextRoundBtn.disabled = false
-            console.log('game won')
         }
     }
 
@@ -157,7 +155,8 @@
         on:click={() => {
             $currentRoundScore = 0
             revealYourSecrets()
-            setGameToLost()
+            setGameLostStatus(true)
+            clearHeaderInterval()
         }}>Give Up</button
     >
     <button class="btn" on:click={returnLettersToOriginalPlace}>Clear</button>
@@ -170,18 +169,18 @@
     >
     <button
         class="btn"
-        bind:this={newWordBtn}
+        bind:this={resetGameBtn}
         on:click={() => {
+            $countdownLength = Date.now() + 120000
+            clearHeaderInterval()
+            renewInterval()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
             resetScore()
-            newWordBtn.blur()
-            $countdownLength = Date.now() + 120000
-            clearHeaderInterval()
-            renewInterval()
             setGameWonStatus(false)
-        }}>New Word</button
+            resetGameBtn.blur()
+        }}>Reset Game</button
     >
     <button
         bind:this={nextRoundBtn}
@@ -189,13 +188,13 @@
         disabled
         on:click={() => {
             $countdownLength = Date.now() + 120000
-            incrementCurrentRound()
+            clearHeaderInterval()
+            renewInterval()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
-            clearHeaderInterval()
-            renewInterval()
             setGameWonStatus(false)
+            incrementCurrentRound()
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()
         }}>Next Round</button
