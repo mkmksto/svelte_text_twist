@@ -14,6 +14,7 @@ export const isGameWon = writable(false)
 export const isGameLost = writable(false)
 
 export function revealYourSecrets() {
+    /** @type {Object} */
     let curWord
     const unsub = currentRandomWord.subscribe((word) => {
         curWord = word

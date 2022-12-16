@@ -193,7 +193,7 @@
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()
             revealYourSecrets()
-            console.log('reveal')
+            await sleep(3000)
             await renewCurrentWord($gameSettings)
 
             $countdownLength = Date.now() + $gameSettings.timer * 1000
