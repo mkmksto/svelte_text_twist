@@ -33,8 +33,9 @@ export function setGameToLost() {
 
 export function incrementCurrentRound() {
     let prevRound
-    currentRound.subscribe((round) => (prevRound = round))
-    currentRound.set(prevRound++)
+    const unsub = currentRound.subscribe((round) => (prevRound = round))
+    currentRound.set(++prevRound)
+    unsub()
 }
 
 export function resetCurrentRound() {

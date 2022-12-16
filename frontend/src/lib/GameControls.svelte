@@ -15,12 +15,15 @@
     } from '../stores/gameSettings'
     import {
         countdownLength,
-        currentRound,
         currentRoundScore,
+        incrementCurrentRound,
         isGameLost,
         isGameWon,
+        resetScore,
+        resetValidLetters,
         revealYourSecrets,
         setGameToLost,
+        setGameWonStatus,
         validatedGuessesStore,
     } from '../stores/gameStates'
     import { clearHeaderInterval, renewInterval } from './Header.svelte'
@@ -111,10 +114,6 @@
         } catch (e) {}
     }
 
-    function resetValidLetters() {
-        validLetters.set(new Set())
-    }
-
     let nextRoundBtn
     function updateWinState() {
         if ($currentRandomWord.sub_words[0].has_been_guessed === true) {
@@ -172,18 +171,16 @@
     <button
         class="btn"
         bind:this={newWordBtn}
-        on:click={async () => {
-            // await tick()
+        on:click={() => {
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
-            $currentRoundScore = 0
+            resetScore()
             newWordBtn.blur()
-            // await tick()
             $countdownLength = Date.now() + 120000
             clearHeaderInterval()
             renewInterval()
-            $isGameWon = false
+            setGameWonStatus(false)
         }}>New Word</button
     >
     <button
@@ -192,13 +189,13 @@
         disabled
         on:click={() => {
             $countdownLength = Date.now() + 120000
-            $currentRound += 1
+            incrementCurrentRound()
             renewCurrentWord($gameSettings)
             resetGuessStore()
             resetValidLetters()
             clearHeaderInterval()
             renewInterval()
-            $isGameWon = false
+            setGameWonStatus(false)
             nextRoundBtn.disabled = true
             nextRoundBtn.blur()
         }}>Next Round</button
