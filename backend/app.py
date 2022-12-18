@@ -3,11 +3,12 @@ import time
 import uuid
 from pprint import pprint
 
-from flask import Flask, request
+from flask import Flask, render_template, request
 from flask_cors import cross_origin
 from utils import dictionary, game_settings
 
 app = Flask(__name__)
+# app = Flask(__name__, static_folder='backend/templates/static', static_url_path='')
 
 
 class App:
@@ -18,13 +19,14 @@ class App:
         self.dict_instance = dic_instance
 
 
-@app.route('/api')
+@app.route('/')
 def index():
-    return 'Api Root'
+    # https://www.youtube.com/watch?v=h96KP3JMX7Q
+    return render_template('index.html')
 
 
 @app.route('/api/random', methods=['GET'])
-@cross_origin(origins=['http://127.0.0.1:5173', 'http://localhost:5173'])
+# @cross_origin(origins=['http://127.0.0.1:5173', 'http://localhost:5173'])
 def get_random_word():
     rand_word = dict_instance.get_random_word()
     freq = dict_instance.get_frequency(rand_word)
